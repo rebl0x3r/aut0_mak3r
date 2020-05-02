@@ -1,0 +1,4 @@
+#IP Address from freeDNS
+#To edit set an "#" before this IP at "/etc/resolv.conf"
+nameserver 37.235.1.177
+#freeDNS dns '37.235.1.177' has been successfully added.

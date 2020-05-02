@@ -1,0 +1,4 @@
+#IP Address from DNS Watch
+#To edit set an "#" before this IP at "/etc/resolv.conf"
+nameserver 84.200.69.80
+#dnswatch dns '84.200.69.80' has been successfully added.
