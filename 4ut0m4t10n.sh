@@ -4,6 +4,7 @@ path=$(pwd)
 backup_window_size="printf '\e[8;24;80t'"
 ipaddr=$(curl ifconfig.me)
 ipaddr2=$(curl icanhazip.com)
+host=$(uname -n)
 
 #some colors
 RED="\e[31m"
@@ -129,6 +130,7 @@ function package_installer {
 function command_check {
 
 	echo -e "${RED}[*] ${YELLOW}Checking if tool callable..."
+	echo ""
 	if [ -f /usr/bin/tmaker ]
 	then
 		echo -e "${GREEN}[*] ${YELLOW}You can call the tool by: ${BLUE}tmaker"
@@ -842,9 +844,85 @@ ${RED}[5] ${YELLOW}Metasploit		 ${GREEN}<--> ${BLUE}Installing Metasploit Framew
 ${RED}[6] ${YELLOW}Framework Collection ${GREEN}<--> ${BLUE}Installing Some Frameworks
 ${RED}[back] ${YELLOW}Back To Termux Tools 
 	"
-	#back = tt
-	
+
+	function instagram {
+		echo ""
 	}
+
+	function website {
+		echo ""
+	}
+
+	function facebook {
+		echo ""
+	}
+
+	function frameworks {
+		echo ""
+	}
+
+	while tol=0
+	do
+		echo -ne "${RED}【 mak3r@root 】 ${YELLOW}/termux_tools/mobile_pentest ${BLUE}~>: "
+		read toolz
+		case "$toolz" in
+			1)
+			clear
+			instagram
+			tol=1
+			;;
+			2)
+			clear
+			website
+			tol=1
+			;;
+			3)
+			clear
+			facebook
+			tol=1
+			;;
+			4)
+			clear
+			echo ""
+			echo -e "${RED}[*] ${YELLOW}DDoS Downloader installation...."
+			cd $HOME
+			git clone https://github.com/ViperZCrew/DDoS_Downloader
+			cd DDoS_Downloader
+			chmod +rwx *sh
+			echo "${RED}[*] ${YELLOW}Done, installed in ${BLUE}$path ${YELLOW}to run type: ${GREEN}bash ddos_downloader.sh"
+			sleep 1
+			pause 'Press [ENTER] to go back.'
+			termux tools
+			tol=1
+			;;
+			5)
+			clear
+			echo -e "${RED}[*] ${YELLOW}Metasploit framework installation...."
+			pkg install unstable-repo -y
+			sleep 1
+			echo -e "${RED}[*] ${YELLOW}This take a lot of time, chill out."
+			apt install metasploit -y
+			pause 'Press [ENTER] to go back.'
+			termux tools
+			tol=1
+			;;
+			6)
+			clear
+			frameworks
+			tol=1
+			;;
+			back)
+			termux_tools
+			tol=1
+			;;
+			*)
+			echo '[!] Wrong command!'
+			sleep 1
+			;;
+		esac
+	done
+	}
+
 function custom_term {
 	echo -e "${RED}[*] ${YELLOW}Customizing your terminal in thoughts to mrblackx..."
 	sleep 1
@@ -855,8 +933,10 @@ function custom_term {
 	cd ..
 	cd usr/etc
 	cp -R bash.bashrc $path/backup
+	rm bash.bash
 	echo 'PS1="\n\e[32mCurrent Directory: \e[35m\w/\n\e[31;1;40mroot\e[37;0;40m@\e[36;1;40m$name~: ' >> bash.bashrc
 	clear
+	sleep 1
 	echo -e "${GREEN}[*] ${YELLOW}Please restart your terminal."
 	echo -e "${GREEN}[*] ${BLUE}To restore the default termux, type:${YELLOW}mv -v $path/backup/bash.bashrc /data/data/com.termux/file/usr/etc/bash.bashrc "
 	pause 'press [ENTER] to go back'
@@ -921,6 +1001,15 @@ function quit {
 	echo -e "${RED}[!] ${BLUE}Wrong command. Quitting."
 }
 
+function os {
+	un=$(uname -m)
+	if [[ $un == "x86_64" ]]
+	then
+		echo -e "${RED}[i] ${GREEN}OS: ${RED}Kali"
+	else
+		echo -e "${RED}[i] ${GREEN}OS: ${RED}Termux"
+	fi
+}
 
 #banner
 
@@ -938,18 +1027,20 @@ Welcome To
    ╚═╝   ╚═╝  ╚═╝╚══════╝  
 "
 
-echo -e $MAGENTA"${BOLD}The Automatic Configure Script For Kali Linux.   "
+echo -e $MAGENTA"${BOLD}The Automatic Configure Script For Linux.   "
 echo ""
 echo -e $RED"Version		: v0.1"
-echo ""
 echo -e $GREEN"Tools		: 4"
-echo ""
 echo -e $MAGENTA"Creator		: MrBlackX"
-echo ""
 echo -e $BLUE"Telegram 	: @Rebl0x3r"
 echo ""
 command_check
+echo ""
 echo -e "${RED}[!] ${YELLOW}Directory of The makeR: ${MAGENTA}${path}."
+echo ""
+os
+echo ""
+echo -e "${RED}[i] ${GREEN}Hostname ${BLUE}$host"
 echo ""
 sleep 0.5
 printf "${RED}[> full_config <] ${YELLOW}   Starting to configure your kali linux for hacking."
