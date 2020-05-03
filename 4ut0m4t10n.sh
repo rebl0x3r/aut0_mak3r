@@ -192,9 +192,11 @@ deb-src https://deb.torproject.org/torproject.org stretch main" >> /etc/apt/sour
 	cound_words=$(wc -l /etc/apt/sources.list | cut -d\  -f 1)
 	sleep 1
 	echo -e $BLUE"Added ${RED}$cound_words ${BLUE}lines to sources list."
+	clear
 	pause 'Press [Enter] to continue....'
 	echo -e $BOLD ""
 	echo -e $YELLOW ""
+	clear
 	read -p "[*] Do you want to see the added lines[y/N]? " sl
 	if [[ $sl == "y" || $sl == "Y" ]]
 	then
@@ -209,13 +211,17 @@ deb-src https://deb.torproject.org/torproject.org stretch main" >> /etc/apt/sour
 		echo -e "${RED}[skiping] ${YELLOW}Ignoring new entries at ${RED}/etc/apt/sources.list..."
 		sleep 1
 	fi
+	clear
 	echo -e $BOLD ""
 	echo -e $RED"[!] Importing kali.org archive key:"
 	wget -q -O - https://www.kali.org/archive-key.asc | apt-key add -
+	sleep 2
+	clear
 	echo -e "${YELLOW}[!] Updating system."
-	#apt update
-	#apt upgrade -y
-	#apt full-upgrade -y
+	sudo apt-key adv --keyserver hkp://pool.sks-keyservers.net:80 --recv-keys 74A941BA219EC810
+	apt update
+	apt upgrade -y
+	apt full-upgrade -y
 	echo ""
 	echo -e "${GREEN}[✓] ${CYAN}Your system has been updated."
 	pause 'Press [Enter] to continue....'
@@ -223,25 +229,26 @@ deb-src https://deb.torproject.org/torproject.org stretch main" >> /etc/apt/sour
 	clear
 	echo -e $CYAN ""
 	echo -e $BOLD ""
-	read -p "Do you want to see your kali linux version[y/N]? " kv
+	read -p "Do you want to see your linux version[y/N]? " kv
 	if [[ $kv == "y" || $kv == "Y" ]]
 	then
 		vk=$(cat /etc/os-release | grep VERSION= | sed -n 's/[A-Z"=]//g;p')
-		clear
 		echo -e "${BOLD}"
 		echo -e "${GREEN}[*] Your kali version is:${RED} $vk${GREEN}."
 	else
 		echo -e "${GREEN}[✓] ${CYAN}Done!"
 		pause 'Press [Enter] to continue....'
 	fi
+	echo ""
 	dpkg --add-architecture i386
 	sleep 1
 	echo -e $MAGENTA ""
 	read -p "[*] Do you want install packages[y/N]? " pck
 	if [[ $pck == "y" || $pck == "Y" ]]
 	then
+		clear
 		echo -e "[~] ${GREEN}Installing new packages, get something to drink and relax.."
-		apt install firmware-misc-nonfree firmware-netxen firmware-realtek python3 python3-* tor tor-arm torbrowser-launcher proxychains filezilla* software-center gdebi geany neofetch git bettercap urlsnarf ngrep awk curl mdk3 mdk4 bc cowpatty php-cgi php apache2 libssl-dev gpa gnupg2 net-tools wget postfix libncurses5 libxml2 tcpdump libexiv2-dev build-essential python-xmpp python-pip ssh ssh-tools htop stacer bleachbit leafpad snapd yersinia cmake make g++ gcc libidevicemobile openssh-server openssl screen wapiti whatweb nmap golismero host wget uniscan wafw00f dirb davtest theharvester xsser dnsrecon fierce dnswalk whois sslyze lbd dnsenum dmitry davtest nikto dnsmap netcat gvfs gvfs-common gvfs-daemons gvfs-libs gconf-service gconf2 gconf2-common gvfs-bin psmisc filezilla filezilla-common gdebi vlc firmware-misc-nonfree firmware-netxen firmware-realtek speedtest speedtest-cli apktool maven default-jdk default-jre openjdk-8-jdk openjdk-8-jrezlib1g-dev libncurses5-dev lib32z1 lib32ncurses6 -y
+		apt install speedtest-cli firmware-misc-nonfree firmware-netxen firmware-realtek python3 tor tor-arm torbrowser-launcher proxychains filezilla gdebi geany neofetch git bettercap ngrep curl mdk3 mdk4 bc cowpatty php-cgi php apache2 libssl-dev gpa gnupg2 net-tools wget postfix libncurses5 libxml2 tcpdump libexiv2-dev build-essential python-pip ssh ssh-tools htop stacer bleachbit leafpad snapd yersinia cmake make g++ gcc openssh-server openssl screen wapiti whatweb nmap golismero host wget uniscan wafw00f dirb davtest theharvester xsser dnsrecon fierce dnswalk whois sslyze lbd dnsenum dmitry davtest nikto dnsmap netcat gvfs gvfs-common gvfs-daemons gvfs-libs gconf-service gconf2 gconf2-common gvfs-bin psmisc filezilla filezilla-common gdebi vlc firmware-misc-nonfree firmware-netxen firmware-realtek apktool maven default-jdk default-jre openjdk-8-jdk libncurses5-dev lib32z1 lib32ncurses6 -y
 		sed -i s/geteuid/getppid/g /usr/bin/vlc
 		clear
 		echo -e $GREEN "[✓] ${CYAN}Packages has been successfully installed."
@@ -249,99 +256,158 @@ deb-src https://deb.torproject.org/torproject.org stretch main" >> /etc/apt/sour
 		clear
 		echo ''
 		echo -e $BOLD "${BLUE}
-Kali linux has some metapackages, means it installs particular stuff you maybe need, i will list some options which you can choose to countinue.		
-		
-${RED}[> kl <] -:- ${YELLOW}Kali linux metapackage includes various network service such as apache and ssh, the kernel of kali and many updated versions. [1,5 GB]
-		
-${RED}[> kf <] -:- ${YELLOW}Kali Forensic is perfectly for forensic works. This resource contains forensic tools. [3,1 GB]		
-		
-${RED}[> kp <] -:- ${YELLOW}Kali linux password tools contains over 40 different password cracking utilities. [6,0 GB]
+${BLUE}[i] ${RED}Kali linux has some metapackages, means it installs particular stuff you maybe need, i will list some options which you can choose to countinue.
 
-${RED}[> kr <] -:- ${YELLOW}Kali rfid tools are for users who are doing research and exploitation. [1,5 GB]
-		
-${RED}[> ks <] -:- ${YELLOW}Kali SDR tools contains large collection of software defined radios tools. [2,4 GB]
-
-${RED}[> kv <] -:- ${YELLOW}Kali voice over ip tools are for people doing voip testing and research. [1,8 GB]
-
-${RED}[> kw <] -:- ${YELLOW}Kali web application tools includes tools for web application hacking. [4,9 GB]
-
-${RED}[> ki <] -:- ${YELLOW}Kali wireless includes tools targeted towards wireless networks. [6,6 GB]
-
-${RED}[> menu <] -:- ${YELLOW}Skipping this and go back to menu.
+${BLUE}[1] ${RED}802-11 Tools		-:- ${YELLOW}Kali Linux 802.11 attacks tools
+${BLUE}[2] ${RED}Bluetooth Tools 		-:- ${YELLOW}Kali Linux bluetooth attacks tools
+${BLUE}[3] ${RED}Crypt & Stego Tools		-:- ${YELLOW}Kali Linux Cryptography and Steganography tools
+${BLUE}[4] ${RED}Database Tools 	 	-:- ${YELLOW}Kali Linux database assessment tools menu
+${BLUE}[5] ${RED}Exploitation Tools		-:- ${YELLOW}Kali Linux exploitation tools menu
+${BLUE}[6] ${RED}Forensics Tools 		-:- ${YELLOW}Kali Linux forensic tools menu
+${BLUE}[7] ${RED}Fuzzing Tools 		-:- ${YELLOW}Kali Linux fuzzing attacks tools
+${BLUE}[8] ${RED}GPU Tools 			-:- ${YELLOW}Kali Linux GPU tools	
+${BLUE}[9] ${RED}Hardware Tools 		-:- ${YELLOW}Kali Linux hardware attacks tools
+${BLUE}[10] ${RED}Headless Tools 		-:- ${YELLOW}Kali Linux headless tools
+${BLUE}[11] ${RED}Information Gathering	-:- ${YELLOW}Kali Linux information gathering menu
+${BLUE}[12] ${RED}Password Tools 		-:- ${YELLOW}Kali Linux password cracking tools menu
+${BLUE}[13] ${RED}Post Exploitation		-:- ${YELLOW}Kali Linux post exploitation tools menu
+${BLUE}[14] ${RED}Reporting Tools 		-:- ${YELLOW}Kali Linux reporting tools menu
+${BLUE}[15] ${RED}Reverse Engineer	 	-:- ${YELLOW}Kali Linux reverse engineering menu
+${BLUE}[16] ${RED}RFID Tools 		-:- ${YELLOW}Kali Linux RFID tools
+${BLUE}[17] ${RED}SDR Tools 			-:- ${YELLOW}Kali Linux SDR tools
+${BLUE}[18] ${RED}Sniffing & Spoofing	-:- ${YELLOW}Kali Linux sniffing & spoofing tools menu
+${BLUE}[19] ${RED}Social Engineering	   	-:- ${YELLOW}Kali Linux social engineering tools menu
+${BLUE}[20] ${RED}Top 10 Tools 		-:- ${YELLOW}Kali Linux top 10 tools
+${BLUE}[21] ${RED}VoiceIP Tools		-:- ${YELLOW}Kali Linux VoIP tools
+${BLUE}[22] ${RED}Vulnerability Tools 	-:- ${YELLOW}Kali Linux vulnerability analysis menu
+${BLUE}[23] ${RED}Web Tools			-:- ${YELLOW}Kali Linux webapp assessment tools menu
+${BLUE}[24] ${RED}Windows Tools		-:- ${YELLOW}Kali Linux Windows resources
+${BLUE}[25] ${RED}Wireless Tools 		-:- ${YELLOW}Kali Linux wireless tools menu
+${BLUE}[all] ${RED}All Tools			-:- ${YELLOW}Installing all tools of kali
+${BLUE}[c] ${RED}Skipping this and will skip this.
+${BLUE}[q] ${RED}Quit the module
 "
 
-		echo -e "${MAGENTA}"
-		printf "【 mak3r@root 】${YELLOW}>/full_config ~>:${GREEN}  " 
-		read mp
-		if [[ $mp == "kl" ]]; then
-			apt install kali-linux -y
-		else
-			err_solver
-		fi
-		
-		if [[ $mp == "kf" ]]; then
-			apt install kali-linux-forensic -y
-		else
-			echo ''
-		fi
-				
-		if [[ $mp == "kp" ]]; then		
-			apt install kali-linux-pwtools -y	
-		else
-			echo ''
-		fi
-		
-		if [[ $mp == "kr" ]]; then		
-		
-			apt install kali-linux-rfid -y
-		else
-			echo ''
-		fi
-		
-		if [[ $mp == "ks" ]]; then
-			apt install kali-linux-sdr -y
-		else
-			echo ''
-		fi
-		
-		if [[ $mp == "kv" ]]; then		
-			apt install kali-linux-voip -y
-		else
-			echo ''
-		fi
-		
-		if [[ $mp == "kw" ]]; then
-			apt install kali-linux-web -y
-		else
-			echo ''
-		fi
-		
-		if [[ $mp == "ki" ]]; then		
-			apt install kali-linux-wireless -y
-		else
-			echo ''
-		fi
-		
-		if [[ $mp == "menu" ]]; then
-			clear
-			pause 'Press [Enter] to continue....'
-			echo -e "${GREEN}[~] ${RED}Skipping.."
-			sleep 0.5
-			clear
-			echo -e "${GREEN}[~] ${RED}Skipping...."
-			sleep 0.5
-			clear
-			echo -e "${GREEN}[~] ${RED}Skipping."
-			sleep 0.5
-			clear
-			echo -e "${GREEN}[~] ${RED}Skipping..."
-			
-		else
-			echo -e $RED "[!] ${YELLOW}Some packages can not be installed."
-		fi
-	else
-		echo -e $RED"[!] ${YELLOW}Skipping."
-	fi	
+		txt=0
+		while [ $txt = 0 ] 
+		do
+			echo -ne "${RED}【 mak3r@root 】${YELLOW}/full_config/packages ${BLUE}~>: "
+			read kali
+			case "$kali" in
+				1)
+				apt install kali-tools-802-11 -y
+				txt=1
+				;;
+				2)
+				apt install kali-tools-bluetooth -y
+				txt=1
+				;;
+				3)
+				apt install kali-tools-crypto-stego -y
+				txt=1
+				;;
+				4)
+				apt install kali-tools-database -y 
+				txt=1
+				;;
+				5)
+				apt install kali-tools-exploitation -y 
+				txt=1
+				;;
+				6)
+				apt install kali-tools-forensics -y 
+				txt=1
+				;;
+				7)
+				apt install kali-tools-fuzzing -y
+				txt=1
+				;;
+				8)
+				apt install kali-tools-gpu -y
+				txt=1
+				;;
+				9)
+				apt install kali-tools-hardware -y
+				txt=1
+				;;
+				10)
+				apt install kali-tools-headless -y
+				txt=1
+				;;
+				11)
+				apt install kali-tools-information-gathering -y
+				txt=1
+				;;
+				12)
+				apt install kali-tools-passwords -y
+				txt=1
+				;;
+				13)
+				apt install kali-tools-post-exploitation -y
+				txt=1
+				;;
+				14)
+				apt install kali-tools-reporting -y
+				txt=1
+				;;
+				15)
+				apt install kali-tools-reverse-engineering -y
+				txt=1
+				;;
+				16)
+				apt install kali-tools-rfid -y
+				txt=1
+				;;
+				17)
+				apt install kali-tools-sdr -y
+				txt=1
+				;;
+				18)
+				apt install kali-tools-sniffing-spoofing -y
+				txt=1
+				;;
+				19)
+				apt install kali-tools-social-engineering -y
+				txt=1
+				;;
+				20)
+				apt install kali-tools-top10 -y
+				txt=1
+				;;
+				21)
+				apt install kali-tools-voip -y
+				txt=1
+				;;
+				22)
+				apt install kali-tools-vulnerability -y
+				txt=1
+				;;
+				23)
+				apt install kali-tools-web -y
+				txt=1
+				;;
+				24)
+				apt install kali-tools-windows-resources
+				txt=1
+				;;
+				25)
+				apt install kali-tools-wireless -y
+				txt=1
+				;;
+				all)
+				apt install kali-tools-802-11 kali-tools-bluetooth kali-tools-crypto-stego kali-tools-database kali-tools-exploitation kali-tools-forensics kali-tools-fuzzing kali-tools-gpu kali-tools-hardware kali-tools-headless kali-tools-information-gathering kali-tools-passwords  kali-tools-post-exploitation kali-tools-reporting kali-tools-reverse-engineering kali-tools-rfid ali-tools-sdr kali-tools-sniffing-spoofing kali-tools-social-engineering kali-tools-top10 kali-tools-voip kali-tools-vulnerability kali-tools-web kali-tools-windows-resources kali-tools-wireless -y
+				txt=1
+				;;
+				c)
+				txt=1
+				;;
+				q)
+				bash 4ut0m4t10n.sh 
+				txt=1
+				;;
+			esac
+		done
+	fi
 	sleep 1.5
 	clear
 	printf "${RED}[*] ${YELLOW}Do you want to make a update command in one[Y/N]? "	
@@ -359,7 +425,6 @@ function $updd {
 	apt-get autoremove -y &&
 	apt-get autoclean &&
 	apt-get clean &&
-	reboot
 	}" >> /root/.bashrc
 		echo -e "${RED}[!] ${BLUE}Type ${RED}$updd ${BLUE}to make a full update for your kali linux."
 		echo -e "${MAGENTA}[!] ${RED}To see changes, close terminal and start terminal again!"
@@ -403,7 +468,7 @@ function $updd {
 			chmod +rwx start-tor-browser.desktop
 			cd Browser
 			echo -e "${RED}[*] ${YELLOW}Remove line 94-98, save and exit it."
-			sleep 2.5
+			pause 'Press [ENTER] to edit the tor file.'
 			gedit start-tor-browser
 			./start-tor-browser
 			pause 'Press [Enter] to continue....'
@@ -463,6 +528,7 @@ function $updd {
 	fi
 	pause 'Press [Enter] to continue..'
 	sleep 0.5
+	clear
 	printf "${MAGENTA}[*] ${GREEN}Anonymous DNS, Fast DNS or Quit(skip)[A/F/Q]?: "
 	read dns
 	if [[ $dns == "A" || $dns == "A" ]]
@@ -499,13 +565,14 @@ function $updd {
 		echo -e "${GREEN}[*] ${MAGENTA} Skipping."
 	fi
 	clear
-	echo -e "${GREEN}[*]${BLUE}Do you want to generate a password for your own security?[Y/N]?: "
+	echo -ne "${GREEN}[*] ${BLUE}Do you want to generate a password for your own security?[Y/N]?:${GREEN} "
 	read pwdg
 	if [[ $pwdg == "y" || $pwdg == "Y" ]]
 	then
 		bash lib/pwd.sh
 	fi
-	printf 'Do you want to configure an openvpn account?[y/N]'
+	clear
+	printf '[?] Do you want to configure an openvpn account?[y/N]'
 	read ovpn
 	if [[ $ovpn == "y" || $ovpn == "Y" ]]
 	then
@@ -546,46 +613,46 @@ function $updd {
 	r=0
 	while [ $r = 0 ]
 		do
-		echo -e "
+		echo -e "${YELLOW}EDITOR INSTALLATION MENU ${BLUE}
+
 - - 	Brackets	- -
 		
-- -	Atom 		- -
+- -	(a)tom 		- -
 
-- -	Visual Code	- -
+- -	(v)isual Code	- -
 
-- -	Geany		- -
+- -	(g)eany		- -
 
-- -	Bluefish 	- -
+- -	(b)luefish 	- -
 
-- - 	Quit 		- -
+- - 	(s)kip 		- -
 
-${RED}Type the editor name in windows in lowercase letters.			
+${RED}Type the letter in () in lowercase f.e: a for atom.			
 		"
-		echo -ne "[?] Which linux code editor you would use?: "
+		echo -ne "${GREEN}[?] Which linux code editor you would use?: "
 		read name
 		case "$name" in
-			brackets)
+			b)
 			brackets
 			r=1
 			;;
-			atom)
+			a)
 			atom
 			r=1
 			;;
-			visualcode)
+			v)
 			visualcode
 			r=1
 			;;
-			bluefish)
+			b)
 			bluefish
 			r=1
 			;;
-			geany)
+			g)
 			geany
 			r=1
 			;;
-			quit)
-			echo "[!] skipping."
+			s)
 			r=1
 			;;
 			*)
@@ -623,9 +690,12 @@ ${RED}Type the editor name in windows in lowercase letters.
 		echo -e "${GREEN}[*] ${BLUE}You have successfully installed balena etcher."
 		echo -e "${GREEN}[*] ${BLUE}To run this tool type ${RED}iso-burner ${BLUE}do not remove the file from /usr/bin."
 	fi
+	clear
 	echo -e "${RED}[!] ${CYAN}Testing your internet speed right now..."
 	sleep 2
 	cd $path/lib
+	echo ""
+	rm results.txt
 	speedtest-cli >> results.txt
 	echo -ne "${GREEN}[*] ${MAGENTA}Your provider is: "
 	cat results.txt | grep from | awk '{print $3 " " $4 " " $5}'
@@ -642,12 +712,14 @@ ${RED}Type the editor name in windows in lowercase letters.
 	echo -e "${RED}[!] ${BLUE}Your original IP is: ${YELLOW}$ipaddr"
 	echo -ne "${GREEN}[*] ${MAGENTA}Your current IP address is : "
 	curl ifconfig.me
+	cd ..
 	echo ""
 	echo -e "${GREEN}[✓] ${YELLOW}Configuring successfully."
 
 	sleep 1.5
 	cd $path
-	pause 'Press [Enter] to exit'
+	pause 'Press [Enter] to go back to main menu'
+	bash 4ut0m4t10n.sh
 }
 
 function install_tools {
@@ -860,8 +932,8 @@ ${RED}[back] ${YELLOW}Back To Termux Tools
 	function frameworks {
 		echo ""
 	}
-
-	while tol=0
+	tol=0
+	while [ tol = 0 ]
 	do
 		echo -ne "${RED}【 mak3r@root 】 ${YELLOW}/termux_tools/mobile_pentest ${BLUE}~>: "
 		read toolz
@@ -978,6 +1050,31 @@ function custom_term {
 	done
 }
 
+function credits {
+	clear
+	echo -e "
+｡☆✼★━━━━━━━━━━━━━━━━━━━━━★✼☆｡	
+		  ______________
+╭━┳━╭━╭━╮╮       /  Credits to   \ 	 
+┃┈┈┈┣▅╋▅┫┃	 | @TheMasterCH  |
+┃┈┃┈╰━╰━━━━━━╮	 | Get some weed |
+╰┳╯┈┈┈┈┈┈┈┈┈◢▉◣	  \_____________ /
+╲┃┈┈┈┈┈┈┈┈┈▉▉▉	  //
+╲┃┈┈┈┈┈┈┈┈┈◥▉◤ __//
+╲┃┈┈┈┈╭━┳━━━━╯
+╲┣━━━━━━┫
+｡☆✼★━━━━━━━━━━━━━━━━━━━━━★✼☆
+
+
+${BLUE}Telegram : ${YELLOW}t.me/rebl0x3r 
+
+
+${RED}｡☆✼★━━━━━━━━━━━━━━━━━━━━━★✼☆
+	"
+	pause 'Press [ENTER] to go back'
+	bash 4ut0m4t10n.sh
+	}
+
 function quit {	
 	clear
 	echo -e "${RED}[*] ${YELLOW} Pre-setting options."
@@ -998,8 +1095,7 @@ function quit {
 	sleep 0.5
 	clear
 	exit
-	echo -e "${RED}[!] ${BLUE}Wrong command. Quitting."
-}
+	}
 
 function os {
 	un=$(uname -m)
@@ -1040,7 +1136,7 @@ echo -e "${RED}[!] ${YELLOW}Directory of The makeR: ${MAGENTA}${path}."
 echo ""
 os
 echo ""
-echo -e "${RED}[i] ${GREEN}Hostname ${BLUE}$host"
+echo -e "${RED}[i] ${GREEN}Hostname: ${RED}$host"
 echo ""
 sleep 0.5
 printf "${RED}[> full_config <] ${YELLOW}   Starting to configure your kali linux for hacking."
@@ -1070,7 +1166,7 @@ echo -e $BLUE ""
 x=0
 while [ $x = 0 ]
 do
-	echo -ne '【 mak3r@root 】~>: '
+	echo -ne "【 mak3r@root 】~>:${RED} "
 	read ex
 	case "$ex" in
 		full_config)
