@@ -248,7 +248,7 @@ deb-src https://deb.torproject.org/torproject.org stretch main" >> /etc/apt/sour
 	then
 		clear
 		echo -e "[~] ${GREEN}Installing new packages, get something to drink and relax.."
-		apt install speedtest-cli firmware-misc-nonfree firmware-netxen firmware-realtek python3 tor tor-arm torbrowser-launcher proxychains filezilla gdebi geany neofetch git bettercap ngrep curl mdk3 mdk4 bc cowpatty php-cgi php apache2 libssl-dev gpa gnupg2 net-tools wget postfix libncurses5 libxml2 tcpdump libexiv2-dev build-essential python-pip ssh ssh-tools htop stacer bleachbit leafpad snapd yersinia cmake make g++ gcc openssh-server openssl screen wapiti whatweb nmap golismero host wget uniscan wafw00f dirb davtest theharvester xsser dnsrecon fierce dnswalk whois sslyze lbd dnsenum dmitry davtest nikto dnsmap netcat gvfs gvfs-common gvfs-daemons gvfs-libs gconf-service gconf2 gconf2-common gvfs-bin psmisc filezilla filezilla-common gdebi vlc firmware-misc-nonfree firmware-netxen firmware-realtek apktool maven default-jdk default-jre openjdk-8-jdk libncurses5-dev lib32z1 lib32ncurses6 -y
+		apt install neofetch lynx xpdf speedtest-cli firmware-misc-nonfree firmware-netxen firmware-realtek python3 tor tor-arm torbrowser-launcher proxychains filezilla gdebi geany neofetch git bettercap ngrep curl mdk3 mdk4 bc cowpatty php-cgi php apache2 libssl-dev gpa gnupg2 net-tools wget postfix libncurses5 libxml2 tcpdump libexiv2-dev build-essential python-pip ssh ssh-tools htop stacer bleachbit leafpad snapd yersinia cmake make g++ gcc openssh-server openssl screen wapiti whatweb nmap golismero host wget uniscan wafw00f dirb davtest theharvester xsser dnsrecon fierce dnswalk whois sslyze lbd dnsenum dmitry davtest nikto dnsmap netcat gvfs gvfs-common gvfs-daemons gvfs-libs gconf-service gconf2 gconf2-common gvfs-bin psmisc filezilla filezilla-common gdebi vlc firmware-misc-nonfree firmware-netxen firmware-realtek apktool maven default-jdk default-jre openjdk-8-jdk libncurses5-dev lib32z1 lib32ncurses6 -y
 		sed -i s/geteuid/getppid/g /usr/bin/vlc
 		clear
 		echo -e $GREEN "[✓] ${CYAN}Packages has been successfully installed."
@@ -849,20 +849,193 @@ ${BLUE}[5] ${MAGENTA}DDoS Tools
 
 }
 
-function social_media {
+function misc {
 	clear
-	echo "
-	[1] Telegram
-	[2] IRC
-	
-	
+	echo -e $MAGENTA""
+	figlet MisC_0pti0nS
+	echo -e "
+${GREEN}[1] ${BLUE}Delete Bash History
+${GREEN}[2] ${BLUE}Print All IPs Up In Network
+${GREEN}[3] ${BLUE}Check Open Ports
+${GREEN}[4] ${BLUE}When Feeling Down, Select This :)
+${GREEN}[5] ${BLUE}Remove All Empty Directories [PLEASE THINK ABOUT IT]
+${GREEN}[6] ${BLUE}MS-DOS PS1 Design (temporarly)
+${GREEN}[7] ${BLUE}Heavy Matrix Shit
+${GREEN}[8] ${BLUE}Get Your Local IPs & Hostname
+${GREEN}[9] ${BLUE}Extract Audio From A Video	
+${GREEN}[10] ${BLUE}List Most Used Commands
+${GREEN}[11] ${BLUE}Fix Broken Sound
+${GREEN}[12] ${BLUE}Block Spam Hosts
+${GREEN}[13] ${BLUE}Prints All Opened Ports On Localhost
+${GREEN}[14] ${BLUE}Generate Password (+Length Option, +Save)
+${GREEN}[15] ${BLUE}System Information
+${GREEN}[16] ${BLUE}When System Was Installed
+${GREEN}[17] ${BLUE}Reset Damaged Terminal
+${GREEN}[18] ${BLUE}Print Apps Which Using Internet Connection
+${GREEN}[19] ${BLUE}Get Info About A Target Website (OS Detection, Hosts, Ports)
+${GREEN}[back] ${BLUE}Back To Menu
+
+${RED}More Coming Soon :)
 	"
 	
 	
-	printf "${RED}【 mak3r@root 】 ${YELLOW}/social_media ${BLUE}~>: "
+	printf "${RED}【 mak3r@root 】 ${YELLOW}/misc ${BLUE}~>: "
 	read sm
-
+	if [[ $sm == 1 ]]
+	then
+		clear
+		sudo history -c
+		echo -e "${GREEN}[i] ${BLUE}Done."
+		echo -e $CYAN""
+		pause 'Press [ENTER] to go back'
+		misc
+	elif [[ $sm == 2 ]]
+	then
+		clear
+		nmap -sP 192.168.0.* | grep MAC | awk '{print $1 ": " $3 " | Device: " $4}' | tr -d "()"
+		echo -e $CYAN""
+		pause 'Press [ENTER] to go back'
+		misc
+	elif [[ $sm == 3 ]]
+	then
+		clear
+		lsof -Pni4 | grep LISTEN | awk '{print $9}'
+		echo -e $CYAN""
+		pause 'Press [ENTER] to go back'
+		misc
+	elif [[ $sm == 4 ]]
+	then
+		clear
+		sl -F
+		misc
+	elif [[ $sm == 5 ]]
+	then
+		clear
+		find . -type d -empty -delete
+		echo -e $CYAN""
+		pause 'Press [ENTER] to go back'
+		misc
+	elif [[ $sm == 6 ]]
+	then
+		clear
+		PS1="C:\$( pwd | sed 's:/:\\\\\\:g' )\\> "
+		misc
+	elif [[ $sm == 7 ]]
+	then
+		clear
+		echo -e "${YELLOW}Press ${RED}CTRL+C ${YELLOW}to quit."
+		pause 'Press [ENTER] to continue'
+		cd lib; bash matrix.sh
+		misc
+	elif [[ $sm == 8 ]]
+	then
+		clear
+		echo -e "${YELLOW}[*] All IPs:${RED} "
+		ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'
+		echo -e $CYAN""
+		pause 'Press [ENTER] to continue'
+		misc
+	elif [[ $sm == 9 ]]
+	then
+		clear
+		echo -ne "${YELLOW}[*] ${GREEN}Enter Video Path(/root/videos/video.mp4):${BLUE} "; read video
+		echo -ne "${YELLOW}[*] ${GREEN}Enter Output Name(/root/videos/audio.mp3):${BLUE} "; read audio
+		ffmpeg -i $video -f mp3 $audio &>/dev/null
+		if [ -f $audio ]
+		then	
+			echo -e "${GREEN}[*] ${YELLOW}Successfully saved in: ${BLUE}$audio"
+		else
+			clear
+			echo -e "${RED}[*] ${YELLOW}Damn.. Try again!"
+		fi
+		echo -e $CYAN""
+		pause 'Press [ENTER] to go back'
+		misc
+	elif [[ $sm == 10 ]]
+	then
+		clear
+		history | awk '{print $2}' | sort | uniq -c | sort -rn | head
+		echo -e $CYAN""
+		pause 'Press [ENTER] to go back'
+		misc
+	
+	elif [[ $sm == 11 ]]
+	then
+		clear
+		sudo killall -9 pulseaudio; pulseaudio >/dev/null 2>&1 &
+		misc
+	elif [[ $sm == 12 ]]
+	then
+		clear
+		wget -q -O - http://someonewhocares.org/hosts/ | grep ^127 >> /etc/hosts
+		wget -qO - http://infiltrated.net/blacklisted|awk '!/#|[a-z]/&&/./{print "iptables -A INPUT -s "$1" -j DROP"}'
+		echo -e $CYAN""
+		misc
+	elif [[ $sm == 13 ]]
+	then
+		clear
+		nmap -p 1-64435 --open localhost | grep tcp | cut -d\  -f1 | awk '{print "Open Ports: " $1}'
+		echo -e $CYAN""
+		pause 'Press [ENTER] to go back'
+		misc
+	elif [[ $sm == 14 ]]
+	then
+		clear
+		echo -ne "${YELLOW}[*] ${RED}How long should the password be: "
+		read long
+		openssl rand -base64 $long >> $path/pwd.txt; 
+		v=$(cat $path/pwd.txt)
+		echo -e "${GREEN}[i] ${BLUE}Generated password: ${YELLOW}$v"
+		echo -e $CYAN""
+		pause 'Press [ENTER] to go back'
+		misc
+	elif [[ $sm == 15 ]]
+	then
+		clear
+		neofetch
+		echo -e $CYAN""
+		pause 'Press [ENTER] to go back'
+		misc
+	elif [[ $sm == 16 ]]
+	then
+		clear
+		f=$(ls -lct /etc/ | tail -1 | awk '{print $6, $7, $8}')	
+		echo -e "${GREEN}[i] ${BLUE}System was installed at ${YELLOW}$f"
+		echo -e $CYAN""
+		pause 'Press [ENTER] to go back'
+		misc
+	elif [[ $sm == 17 ]]
+	then
+		clear
+		reset
+		misc
+	elif [[ $sm == 18 ]]
+	then
+		clear
+		lsof -P -i -n | cut -f 1 -d " "| uniq | tail -n +2
+		echo -e $CYAN""
+		pause 'Press [ENTER] to go back'
+		misc
+	elif [[ $sm == 19 ]]
+	then
+		clear
+		echo -ne "${GREEN}[i] ${YELLOW}Enter Target Wesbite(test.com):${RED} "
+		read target
+		nmap -sS --top-ports "1000" -sV -O -Pn -vv $target
+		echo -e $CYAN""
+		pause 'Press [ENTER] to go back'
+		misc
+	elif [[ "$sm" == "back" ]]
+	then
+		clear
+		main
+		clear
+	else
+		echo "${RED}[!] Wrong command"
+		misc
+	fi
 }
+
 function tt {
 	clear
 	termux_tools
@@ -1145,7 +1318,7 @@ sleep 0.5
 printf "${RED}[> install_tools <] ${YELLOW} Lists you a list of tools that are recommend to install."
 echo ""
 sleep 0.5
-printf "${RED}[> social_media <] ${YELLOW}  Lists you a list of social media that can be installed."
+printf "${RED}[> misc <] ${YELLOW} 	     Some extra command line linux tools"
 echo ""
 sleep 0.5
 printf "${RED}[> termux_tools <] ${YELLOW}  Termux section for mobile users."
@@ -1177,8 +1350,8 @@ do
 		echo -e "${RED}[!] ${BLUE}Sorry this is under process."
 		x=1
 		;;
-		social_media)
-		social_media
+		misc)
+		misc
 		x=1
 		;;
 		termux_tools)
