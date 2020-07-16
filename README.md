@@ -54,7 +54,7 @@
   
 # Disclaimer
 
-  Use this tool for purposes only .:-) 🕵️‍♂️
+  Use this tool for educational purposes only .:-) 🕵️‍♂️
   If you do any illegal attacks, i am not responsible for your tasks.
   Use this tool correctly, and do not re-upload it on your github repository without permissions.
 
