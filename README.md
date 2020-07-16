@@ -69,15 +69,15 @@
 
 # Credits
 
-    Channels : 
-                Leakerhounds[LeakerHounds](https://t.me/LeakerHounds)
-                ViperZCrew[ViperZCrew](https://t.me/ViperZCrew)
-                Deepwaterleaks[Deepwaterleaks](https://t.me/deepwaterleaks2)
+Channels : 
+         Leakerhounds[LeakerHounds](https://t.me/LeakerHounds)
+         ViperZCrew[ViperZCrew](https://t.me/ViperZCrew)
+         Deepwaterleaks[Deepwaterleaks](https://t.me/deepwaterleaks2)
                
-    Helpers  :
-                BlackFlare
-                Legend
-                MarCus
+Helpers  :
+         BlackFlare
+         Legend
+         MarCus
                 
                 
                 
