@@ -41,6 +41,18 @@
 
 # Features
 
+  Some features are not available yet but coming as soon as possible
+
+  * Full Linux Configuration (Sources, Kali Tools, OpenVPN...)
+  * Pentesting Tools Installation (Many Github Tools)
+  * Cool Command Line Features (Delete History, Print All IPs In Network, Check Open Ports....much more!)
+  * Termux Tools (Instagram(Attacks)/Facebook(Attacks)/Metasploit/DDoS)
+  * Termux Update Installation (Updating Termux)
+  * Termux Necessary Package Installation (Installing some packages)
+  * Community Tools (Combo Editor, MySQL Exploiter, Proxyscraper, Dead Pinger, Password, Payloader, Evil Wifi, WhatSpam, B00t3r, FTP Exploit, Gmail Bruter, MAC Gen, Pentestbox, r00tw0rm, DDoS Scripts, SSH Exploit, JexBoss, Telnet Bruter)
+  * Command Execution (tmaker)
+  * 
+  
 # Disclaimer
 
   Use this tool for purposes only .:-) 🕵️‍♂️
@@ -69,10 +81,12 @@
 
 # Credits
 
-Channels : 
-         Leakerhounds[LeakerHounds](https://t.me/LeakerHounds)
-         ViperZCrew[ViperZCrew](https://t.me/ViperZCrew)
-         Deepwaterleaks[Deepwaterleaks](https://t.me/deepwaterleaks2)
+_Channels :_ 
+[LeakerHounds](https://t.me/LeakerHounds)
+
+[ViperZCrew](https://t.me/ViperZCrew)
+         
+[Deepwaterleaks](https://t.me/deepwaterleaks2)
                
 Helpers  :
          BlackFlare
