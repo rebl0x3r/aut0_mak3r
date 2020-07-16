@@ -51,7 +51,6 @@
   * Termux Necessary Package Installation (Installing some packages)
   * Community Tools (Combo Editor, MySQL Exploiter, Proxyscraper, Dead Pinger, Password, Payloader, Evil Wifi, WhatSpam, B00t3r, FTP Exploit, Gmail Bruter, MAC Gen, Pentestbox, r00tw0rm, DDoS Scripts, SSH Exploit, JexBoss, Telnet Bruter)
   * Command Execution (tmaker)
-  * 
   
 # Disclaimer
 
@@ -82,17 +81,27 @@
 # Credits
 
 _Channels :_ 
+
+
 [LeakerHounds](https://t.me/LeakerHounds)
 
 [ViperZCrew](https://t.me/ViperZCrew)
          
 [Deepwaterleaks](https://t.me/deepwaterleaks2)
                
-Helpers  :
-         BlackFlare
-         Legend
-         MarCus
-                
+_Helpers  :_
+
+
+BlackFlare
+
+Legend
+
+MarCus
+
+
+_Coder & Contact :_
+  
+TheMasterCH(https://wa.me/2348148949234)
                 
                 
                 
@@ -100,6 +109,7 @@ Helpers  :
 Telegram:
 * @TheMasterCH
 * @On1c0n3
+
 
 
 # Bug Report
