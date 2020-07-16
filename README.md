@@ -73,8 +73,12 @@
   *WARNING* : The tool has some folders, please don't delete them!
   
   ```backup```   Backup folder is a folder for dns and bashrc backup. 
+  
   ```lib```      Lib folder is a folder for libraries, like the other module tools(you can run them manually also).
-  ```openvpn```  Openvpn folder is a folder for openvpn login configs and it has it own modules ```openvpn.sh```(read README.txt)
+  
+  ```openvpn```  Openvpn folder is a folder for openvpn login configs and it has it own modules ```openvpn.sh```(read 
+ README.txt)
+ 
   ```tools```    Tools folder was this folder was intended for tools and will be included in the next update.
 
 
@@ -113,5 +117,5 @@ Telegram:
 
 
 # Bug Report
-  If you found any bug or issue, pless go [here](https://github.com/rebl0x3r/pr0xyscr4p3r/issues)
+  If you found any bug or issue, pless go [here](https://github.com/rebl0x3r/aut0_mak3r/issues)
   You can also request an update.
