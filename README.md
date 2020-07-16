@@ -70,9 +70,9 @@
 # Credits
 
     Channels : 
-                [LeakerHounds](https://t.me/LeakerHounds)
-                [ViperZCrew](https://t.me/ViperZCrew)
-                [Deepwaterleaks](https://t.me/deepwaterleaks2)
+                Leakerhounds[LeakerHounds](https://t.me/LeakerHounds)
+                ViperZCrew[ViperZCrew](https://t.me/ViperZCrew)
+                Deepwaterleaks[Deepwaterleaks](https://t.me/deepwaterleaks2)
                
     Helpers  :
                 BlackFlare
