@@ -38,7 +38,8 @@
   * Added Termux Section (```termux_tools```)
   * Added Misc Section For Linux User (```misc```)
   * Added ViperZCrew Tools (```tools```)
-  
+
+# Features
 
 # Disclaimer
 
@@ -68,16 +69,10 @@
 
 # Credits
 
-* Credits: 
-                [ref-1]:https://t.me/LeakerHounds
-                [ref-2]:https://t.me/ViperZCrew
-                [ref-3]:https://t.me/DeepWaterLeaks2
-                
-                 
     Channels : 
-                LeakerHounds[ref-1]
-                ViperZCrew[ref-2]
-                Deepwaterleaks[ref-3]
+                [LeakerHounds](https://t.me/LeakerHounds)
+                [ViperZCrew](https://t.me/ViperZCrew)
+                [Deepwaterleaks](https://t.me/deepwaterleaks2)
                
     Helpers  :
                 BlackFlare
