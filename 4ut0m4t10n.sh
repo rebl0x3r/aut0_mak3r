@@ -17,9 +17,16 @@ RESTORE="\e[39"
 BOLD="\e[1m"
 NORMAL="\e[0m"
 
-printf '\e[8;35;100t'
+printf '\e[8;37;100t'
 
 #functions
+
+if [ -d $path/tools ]
+then
+	echo ""
+else
+	mkdir tools
+fi
 
 function main {
 	bash 4ut0m4t10n.sh
@@ -186,9 +193,7 @@ function full_config {
 	rm -rf /etc/apt/sources.list
 	touch /etc/apt/sources.list
 	echo "deb http://http.kali.org/kali kali-rolling main non-free contrib
-deb-src http://http.kali.org/kali kali-rolling main non-free contrib
-deb https://deb.torproject.org/torproject.org stretch main
-deb-src https://deb.torproject.org/torproject.org stretch main" >> /etc/apt/sources.list
+deb-src http://http.kali.org/kali kali-rolling main non-free contrib" >> /etc/apt/sources.list
 	cound_words=$(wc -l /etc/apt/sources.list | cut -d\  -f 1)
 	sleep 1
 	echo -e $BLUE"Added ${RED}$cound_words ${BLUE}lines to sources list."
@@ -873,6 +878,8 @@ ${GREEN}[16] ${BLUE}When System Was Installed
 ${GREEN}[17] ${BLUE}Reset Damaged Terminal
 ${GREEN}[18] ${BLUE}Print Apps Which Using Internet Connection
 ${GREEN}[19] ${BLUE}Get Info About A Target Website (OS Detection, Hosts, Ports)
+${GREEN}[20] ${BLUE}Fix APT Install Errors (NOT FINISHED YET)
+${GREEN}[21] ${BLUE}Removing Log Files For Security Reasons (Requires Root)
 ${GREEN}[back] ${BLUE}Back To Menu
 
 ${RED}More Coming Soon :)
@@ -907,6 +914,7 @@ ${RED}More Coming Soon :)
 	then
 		clear
 		sl -F
+		pause 'Press [ENTER] to go back'
 		misc
 	elif [[ $sm == 5 ]]
 	then
@@ -1025,6 +1033,14 @@ ${RED}More Coming Soon :)
 		echo -e $CYAN""
 		pause 'Press [ENTER] to go back'
 		misc
+	elif [[ $sm == 21 ]]
+	then
+		clear
+		echo -e "${GREEN}[i] ${BLUE}Clearing logs...."
+		sleep 1
+		echo '' > /var/log/*.log || echo -e "${RED}[!] ${YELLOW}Cannot overwrite logs, make sure you use root!"
+		pause 'Press [ENTER] to go back'
+		misc
 	elif [[ "$sm" == "back" ]]
 	then
 		clear
@@ -1040,17 +1056,10 @@ function tt {
 	clear
 	termux_tools
 }
-function termux_tools {
+###############################
 
-	clear
-	figlet TermuXT00Ls
-	echo -e "
-${RED}[1] ${YELLOW}Updating System
-${RED}[2] ${YELLOW}Installing Packages
-${RED}[3] ${YELLOW}Mobile Pentesting
-${RED}[4] ${YELLOW}Custom PS1 (mrblackx's special)
-${RED}[menu] ${YELLOW}Back To Main Menu
-	"
+
+function termux_tools {
 
 	function update_ter {
 		clear
@@ -1058,7 +1067,7 @@ ${RED}[menu] ${YELLOW}Back To Main Menu
 		apt update
 		apt upgrade -y
 		pkg upgrade -y
-		echo "${GREEN}[*] ${YELLOW}Done."
+		echo -e "${GREEN}[*] ${YELLOW}Done."
 		pause 'Press [ENTER] to go back'
 		termux_tools
 	}
@@ -1075,90 +1084,158 @@ ${RED}[menu] ${YELLOW}Back To Main Menu
 		sleep 1
 		pause 'press [ENTER] to continue'
 		termux_tools
-}
-
-function mobile_pt {
-	clear
-	figlet M0biL3_penT3st
-	echo -e "
-${RED}[1] ${YELLOW}Instagram Collection ${GREEN}<--> ${BLUE}Installing Instagram Tools
-${RED}[2] ${YELLOW}Website Collection   ${GREEN}<--> ${BLUE}Installing Website Tools
-${RED}[3] ${YELLOW}Facebook Collection	 ${GREEN}<--> ${BLUE}Installing Facebook Tools
-${RED}[4] ${YELLOW}DDoS Downloader	 ${GREEN}<--> ${BLUE}Installing A DDoS Downloader Tool(Linux/Termux)
-${RED}[5] ${YELLOW}Metasploit		 ${GREEN}<--> ${BLUE}Installing Metasploit Framework
-${RED}[6] ${YELLOW}Framework Collection ${GREEN}<--> ${BLUE}Installing Some Frameworks
-${RED}[back] ${YELLOW}Back To Termux Tools 
-	"
-
-	function instagram {
-		echo ""
 	}
 
-	function website {
-		echo ""
-	}
-
-	function facebook {
-		echo ""
-	}
-
-	function frameworks {
-		echo ""
-	}
-	tol=0
-	while [ tol = 0 ]
-	do
-		echo -ne "${RED}【 mak3r@root 】 ${YELLOW}/termux_tools/mobile_pentest ${BLUE}~>: "
-		read toolz
-		case "$toolz" in
-			1)
+	function mobile_pt {
+		function instagram {
 			clear
-			instagram
-			tol=1
+			figlet "Loading Module."
+			sleep 0.5; clear
+			figlet "Loading Module.."
+			sleep 0.5; clear
+			figlet "Loading Module..."
+			sleep 0.5; clear
+			echo -e "${GREEN}"
+			figlet "Loaded!"
+			sleep 0.5
+			echo -e "${RED}We are installing some repositories hit enter to begin> "
+			#echo -e "${GREEN}[i] ${BLUE}Creating directory : ${YELLOW}insta-collection"
+			sleep 1
+			bash lib/insta.sh
+		
+		}
+
+		function viperzcrew {
+			clear
+			figlet "Loading Module."
+			sleep 0.5; clear
+			figlet "Loading Module.."
+			sleep 0.5; clear
+			figlet "Loading Module..."
+			sleep 0.5; clear
+			echo -e "${GREEN}"
+			figlet "Loaded!"
+			sleep 0.5
+			echo -e "${RED}We are installing some repositories hit enter to begin> "
+			#echo -e "${GREEN}[i] ${BLUE}Creating directory : ${YELLOW}website
+			sleep 1
+			bash lib/viperzcrew.sh
+		}
+
+		function facebook {
+			echo .e "${GREEN}[i] ${BLUE}Under progress ;)"
+			pause 'Press [Enter] To Go Back'
+			termux_tools
+		}
+
+	
+		clear
+		figlet M0biL3_penT3st
+		echo -e "
+${RED}[1] ${YELLOW}Instagram Collection ${GREEN}==> ${BLUE}Installing Instagram Tools
+${RED}[2] ${YELLOW}ViperZCrew Special   ${GREEN}==> ${BLUE}Installing Website Tools
+${RED}[3] ${YELLOW}Facebook Collection	 ${GREEN}==> ${BLUE}Installing Facebook Tools
+${RED}[4] ${YELLOW}DDoS Downloader	 ${GREEN}==> ${BLUE}Installing A DDoS Downloader Tool(Linux/Termux)
+${RED}[5] ${YELLOW}Metasploit		 ${GREEN}==> ${BLUE}Installing Metasploit Framework
+${RED}[back] ${YELLOW}Back To Termux Tools 
+${RED}[menu] ${YELLOW}Back To Main Menu
+	"
+		ds=0
+		while [ $ds = 0 ]
+		do
+			echo -ne "${RED}【 mak3r@root 】 ${YELLOW}/termux_tools/mobile_pentest ${BLUE}~>: "
+			read tood
+			case "$tood" in
+				1)
+				clear
+				instagram
+				ds=1
+				;;
+				2)
+				clear
+				viperzcrew
+				ds=1
+				;;
+				3)
+				clear
+				facebook
+				ds=1
+				;;
+				4)
+				clear
+				echo ""
+				echo -e "${RED}[*] ${YELLOW}DDoS Downloader installation...."
+				cd $HOME
+				git clone https://github.com/ViperZCrew/DDoS_Downloader
+				cd DDoS_Downloader
+				chmod +rwx *sh
+				echo "${RED}[*] ${YELLOW}Done, installed in ${BLUE}$path ${YELLOW}to run type: ${GREEN}bash ddos_downloader.sh"
+				sleep 1
+				pause 'Press [ENTER] to go back.'
+				termux tools
+				ds=1
+				;;
+				5)
+				clear
+				echo -e "${RED}[*] ${YELLOW}Metasploit framework installation...."
+				pkg install unstable-repo -y
+				sleep 1
+				echo -e "${RED}[*] ${YELLOW}This take a lot of time, chill out."
+				apt install metasploit -y
+				pause 'Press [ENTER] to go back.'
+				termux tools
+				ds=1
+				;;
+				back)
+				termux_tools
+				ds=1
+				;;
+				menu)
+				main
+				ds=1
+				;;
+				*)
+				echo '[!] Wrong command!'
+				sleep 1
+				;;
+			esac
+		done
+	}
+
+	clear
+	figlet TermuXT00Ls
+	echo -e "
+${RED}[1] ${YELLOW}Updating System
+${RED}[2] ${YELLOW}Installing Packages
+${RED}[3] ${YELLOW}Mobile Pentesting
+${RED}[4] ${YELLOW}Custom PS1 (mrblackx's special)
+${RED}[menu] ${YELLOW}Back To Main Menu
+	"
+	tto=0
+	while [ $tto = 0 ]
+	do
+		echo -ne "${RED}【 mak3r@root 】 ${YELLOW}/termux_tools ${BLUE}~>: "
+		read termt
+		case $termt in
+			1)
+			update_ter
+			tto=1
 			;;
 			2)
-			clear
-			website
-			tol=1
+			install_pck
+			tto=1
 			;;
 			3)
-			clear
-			facebook
-			tol=1
+			mobile_pt
+			tto=1
 			;;
 			4)
-			clear
-			echo ""
-			echo -e "${RED}[*] ${YELLOW}DDoS Downloader installation...."
-			cd $HOME
-			git clone https://github.com/ViperZCrew/DDoS_Downloader
-			cd DDoS_Downloader
-			chmod +rwx *sh
-			echo "${RED}[*] ${YELLOW}Done, installed in ${BLUE}$path ${YELLOW}to run type: ${GREEN}bash ddos_downloader.sh"
-			sleep 1
-			pause 'Press [ENTER] to go back.'
-			termux tools
-			tol=1
+			custom_term
+			tto=1
 			;;
-			5)
-			clear
-			echo -e "${RED}[*] ${YELLOW}Metasploit framework installation...."
-			pkg install unstable-repo -y
-			sleep 1
-			echo -e "${RED}[*] ${YELLOW}This take a lot of time, chill out."
-			apt install metasploit -y
-			pause 'Press [ENTER] to go back.'
-			termux tools
-			tol=1
-			;;
-			6)
-			clear
-			frameworks
-			tol=1
-			;;
-			back)
-			termux_tools
-			tol=1
+			menu)
+			main
+			tto=1
 			;;
 			*)
 			echo '[!] Wrong command!'
@@ -1166,7 +1243,7 @@ ${RED}[back] ${YELLOW}Back To Termux Tools
 			;;
 		esac
 	done
-	}
+}
 
 function custom_term {
 	echo -e "${RED}[*] ${YELLOW}Customizing your terminal in thoughts to mrblackx..."
@@ -1186,42 +1263,9 @@ function custom_term {
 	echo -e "${GREEN}[*] ${BLUE}To restore the default termux, type:${YELLOW}mv -v $path/backup/bash.bashrc /data/data/com.termux/file/usr/etc/bash.bashrc "
 	pause 'press [ENTER] to go back'
 	termux_tools
-	}
-
-
-
-	while tt=0
-	do
-		echo -ne "${RED}【 mak3r@root 】 ${YELLOW}/termux_tools ${BLUE}~>: "
-		read termt
-		case "$termt" in
-			1)
-			update_ter
-			tt=1
-			;;
-			2)
-			install_pck
-			tt=1
-			;;
-			3)
-			mobile_pt
-			tt=1
-			;;
-			4)
-			custom_term
-			tt=1
-			;;
-			menu)
-			main
-			tt=1
-			;;
-			*)
-			echo '[!] Wrong command!'
-			sleep 1
-			;;
-		esac
-	done
 }
+
+
 
 function credits {
 	clear
@@ -1236,14 +1280,25 @@ function credits {
 ╲┃┈┈┈┈┈┈┈┈┈◥▉◤ __//
 ╲┃┈┈┈┈╭━┳━━━━╯
 ╲┣━━━━━━┫
+
+${GREEN}Coded by			: ${MAGENTA}TheMasterCH
+${GREEN}Insta Tools Collected 		: ${MAGENTA}BlackFlare
+${GREEN}ViperZCrew Tools Collected	: ${MAGENTA}Legend
+${GREEN}Facebook Tools Collected	: ${MAGENTA}TheMasterCH
+${RED}
 ｡☆✼★━━━━━━━━━━━━━━━━━━━━━★✼☆
 
 
-${BLUE}Telegram : ${YELLOW}t.me/rebl0x3r 
+${BLUE}Telegram : ${YELLOW}t.me/leakerhounds
+
+${BLUE}Telegram : ${YELLOW}t.me/deepwaterleak2
+
+${BLUE}Telegram : ${YELLOW}t.me/viperzcrew
 
 
 ${RED}｡☆✼★━━━━━━━━━━━━━━━━━━━━━★✼☆
 	"
+	echo -e "${GREEN}"
 	pause 'Press [ENTER] to go back'
 	bash 4ut0m4t10n.sh
 	}
@@ -1274,7 +1329,8 @@ function os {
 	un=$(uname -m)
 	if [[ $un == "x86_64" ]]
 	then
-		echo -e "${RED}[i] ${GREEN}OS: ${RED}Kali"
+		os=$(uname -o)
+		echo -e "${RED}[i] ${GREEN}OS: ${RED}$os"
 	else
 		echo -e "${RED}[i] ${GREEN}OS: ${RED}Termux"
 	fi
@@ -1299,9 +1355,9 @@ Welcome To
 echo -e $MAGENTA"${BOLD}The Automatic Configure Script For Linux.   "
 echo ""
 echo -e $RED"Version		: v0.1"
-echo -e $GREEN"Tools		: 4"
+echo -e $GREEN"Tools		: 59"
 echo -e $MAGENTA"Creator		: MrBlackX"
-echo -e $BLUE"Telegram 	: @Rebl0x3r"
+echo -e $BLUE"Telegram 	: @TheMasterCH"
 echo ""
 command_check
 echo ""
@@ -1311,22 +1367,25 @@ os
 echo ""
 echo -e "${RED}[i] ${GREEN}Hostname: ${RED}$host"
 echo ""
-sleep 0.5
-printf "${RED}[> full_config <] ${YELLOW}   Starting to configure your kali linux for hacking."
+sleep 0.2
+printf "${RED}[> full_config <] ${YELLOW}   Start to configure your linux for hacking."
 echo ""
-sleep 0.5
-printf "${RED}[> install_tools <] ${YELLOW} Lists you a list of tools that are recommend to install."
+sleep 0.2
+printf "${RED}[> install_tools <] ${YELLOW} Automatic installation over 100 tools from github"
 echo ""
-sleep 0.5
+sleep 0.2
 printf "${RED}[> misc <] ${YELLOW} 	     Some extra command line linux tools"
 echo ""
-sleep 0.5
+sleep 0.2
 printf "${RED}[> termux_tools <] ${YELLOW}  Termux section for mobile users."
 echo ""
-sleep 0.5
+sleep 0.2
+printf "${RED}[> tools <]	${YELLOW}     Some tools from us for you"
+echo ""
+sleep 0.2
 printf "${RED}[> credits <] ${YELLOW}       Lists credits & contact."
 echo ""
-sleep 0.5
+sleep 0.2
 printf "${RED}[> quit <] ${YELLOW}          Leaving(press q to quit)."
 echo ""
 echo ""
@@ -1360,6 +1419,10 @@ do
 		;;
 		credits)
 		credits
+		x=1
+		;;
+		tools)
+		bash lib/communitytools.sh
 		x=1
 		;;
 		quit)
