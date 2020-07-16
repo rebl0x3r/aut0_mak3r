@@ -1199,7 +1199,7 @@ ${RED}[main] ${YELLOW}Back To Main Menu
 				echo -e "${RED}[*] ${YELLOW}This take a lot of time, chill out."
 				apt install metasploit -y
 				pause 'Press [ENTER] to go back.'
-				termux tools
+				termux_tools
 				ds=1
 				;;
 				back)
