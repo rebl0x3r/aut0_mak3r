@@ -77,13 +77,13 @@ ${op}Version:${rs}                                              ${op}v0.1${rs}
     printf "${g}[${y}back${g}] ${p}=> ${b}Back To Menu"; sleep 0.2; echo ""
     printf "${g}[${y}exit|e${g}] ${p}=> ${b}Exit Tool"; sleep 0.2; echo ""
     echo ""
-    echo -e "${r}[!] NOTE: ${y} Some tools need a wordlist, or any arguments, it will only "
+    echo -e "${r}[!] NOTE: ${y} Some tools need a wordlist, or any arguments, in most cases it prints only usage"
     
     testt=0
     while [ $testt = 0 ]
     do 
         echo -e "${bd}"
-        echo -ne "${r}【 mak3r@root 】${y}/lib/insta.sh ${b}~>:${r} "
+        echo -ne "${r}【 mak3r@root 】${y}/lib/communitytools.sh ${b}~>:${r} "
         read use
         case "$use" in 
             1)

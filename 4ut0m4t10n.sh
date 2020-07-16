@@ -2,9 +2,9 @@
 
 path=$(pwd)
 backup_window_size="printf '\e[8;24;80t'"
-ipaddr=$(curl ifconfig.me)
-ipaddr2=$(curl icanhazip.com)
-host=$(uname -n)
+ipaddr="$(curl ifconfig.me)"
+ipaddr2="$(curl icanhazip.com)"
+host="$(uname -n)"
 
 #some colors
 RED="\e[31m"
@@ -29,7 +29,14 @@ else
 fi
 
 function main {
-	bash 4ut0m4t10n.sh
+	o="$(uname -o)"
+	if [ $o == "Android" ]
+	then
+		cd $HOME/aut0_mak3r
+		bash 4ut0m4t10n.sh
+	else
+		tmaker
+	fi
 }
 
 function brackets {
@@ -141,10 +148,13 @@ function command_check {
 	if [ -f /usr/bin/tmaker ]
 	then
 		echo -e "${GREEN}[*] ${YELLOW}You can call the tool by: ${BLUE}tmaker"
+	elif [ -f /data/data/com.termux/files/usr/bin/tmaker ]
+	then
+		echo -e "${GREEN}[*] ${YELLOW}You can call the tool by: ${BLUE}tmaker"
 	else
 		echo -e "${RED}[*] ${YELLOW}Tool is not callable, adding it...."
-		cp -R $path/4ut0m4t10n.sh /usr/bin/tmaker 
-		chmod +x /usr/bin/tmaker
+		cp -R 4ut0m4t10n.sh /data/data/com.termux/files/usr/bin/tmaker 
+		chmod +x /data/data/com.termux/usr/bin/tmaker
 		echo -e "${GREEN}[*] ${YELLOW}Done."
 		echo -e "${GREEN}[*] ${YELLOW}You can call the tool by: ${BLUE}tmaker"
 	fi
@@ -1101,8 +1111,11 @@ function termux_tools {
 			echo -e "${RED}We are installing some repositories hit enter to begin> "
 			#echo -e "${GREEN}[i] ${BLUE}Creating directory : ${YELLOW}insta-collection"
 			sleep 1
+			echo -e "${BLUE}Path: ${GREEN}:$PWD"
+			pause 'Press Enter'
+			cd aut0_mak3r
 			bash lib/insta.sh
-		
+
 		}
 
 		function viperzcrew {
@@ -1119,11 +1132,14 @@ function termux_tools {
 			echo -e "${RED}We are installing some repositories hit enter to begin> "
 			#echo -e "${GREEN}[i] ${BLUE}Creating directory : ${YELLOW}website
 			sleep 1
+			echo -e "${BLUE}Path: ${GREEN}:$PWD"
+			pause 'Press Enter'
+			cd aut0_mak3r
 			bash lib/viperzcrew.sh
 		}
 
 		function facebook {
-			echo .e "${GREEN}[i] ${BLUE}Under progress ;)"
+			echo -e "${GREEN}[i] ${BLUE}Under progress ;)"
 			pause 'Press [Enter] To Go Back'
 			termux_tools
 		}
@@ -1138,7 +1154,7 @@ ${RED}[3] ${YELLOW}Facebook Collection	 ${GREEN}==> ${BLUE}Installing Facebook T
 ${RED}[4] ${YELLOW}DDoS Downloader	 ${GREEN}==> ${BLUE}Installing A DDoS Downloader Tool(Linux/Termux)
 ${RED}[5] ${YELLOW}Metasploit		 ${GREEN}==> ${BLUE}Installing Metasploit Framework
 ${RED}[back] ${YELLOW}Back To Termux Tools 
-${RED}[menu] ${YELLOW}Back To Main Menu
+${RED}[main] ${YELLOW}Back To Main Menu
 	"
 		ds=0
 		while [ $ds = 0 ]
@@ -1169,10 +1185,10 @@ ${RED}[menu] ${YELLOW}Back To Main Menu
 				git clone https://github.com/ViperZCrew/DDoS_Downloader
 				cd DDoS_Downloader
 				chmod +rwx *sh
-				echo "${RED}[*] ${YELLOW}Done, installed in ${BLUE}$path ${YELLOW}to run type: ${GREEN}bash ddos_downloader.sh"
+				echo -e "${RED}[*] ${YELLOW}Done, installed in ${BLUE}$path ${YELLOW}to run type: ${GREEN}bash ddos_downloader.sh"
 				sleep 1
 				pause 'Press [ENTER] to go back.'
-				termux tools
+				termux_tools
 				ds=1
 				;;
 				5)
@@ -1190,7 +1206,7 @@ ${RED}[menu] ${YELLOW}Back To Main Menu
 				termux_tools
 				ds=1
 				;;
-				menu)
+				main)
 				main
 				ds=1
 				;;
@@ -1204,7 +1220,10 @@ ${RED}[menu] ${YELLOW}Back To Main Menu
 
 	clear
 	figlet TermuXT00Ls
+	cd $HOME
 	echo -e "
+${BLUE}PATH: ${GREEN}:$path
+
 ${RED}[1] ${YELLOW}Updating System
 ${RED}[2] ${YELLOW}Installing Packages
 ${RED}[3] ${YELLOW}Mobile Pentesting
@@ -1234,7 +1253,8 @@ ${RED}[menu] ${YELLOW}Back To Main Menu
 			tto=1
 			;;
 			menu)
-			main
+			cd $path
+			bash 4ut0m4t10n.sh
 			tto=1
 			;;
 			*)
@@ -1248,17 +1268,19 @@ ${RED}[menu] ${YELLOW}Back To Main Menu
 function custom_term {
 	echo -e "${RED}[*] ${YELLOW}Customizing your terminal in thoughts to mrblackx..."
 	sleep 1
-	echo -ne "${GREEN}[*] ${YELLOW}Enter your name-: "
+	echo -ne "${GREEN}[*] ${YELLOW}Enter your name-:${BLUE} "
 	read name
 	echo -e "${GREEN}[*] ${BLUE}Doing the work...."
 	sleep 2
-	cd ..
+	cd ..; cd ..
 	cd usr/etc
-	cp -R bash.bashrc $path/backup
-	rm bash.bash
-	echo 'PS1="\n\e[32mCurrent Directory: \e[35m\w/\n\e[31;1;40mroot\e[37;0;40m@\e[36;1;40m$name~: ' >> bash.bashrc
+	cp -R bash.bashrc $HOME/aut0_mak3r/backup
+	mv -v bash.bashrc bash.bashrc.bak
+	touch bash.bashrc
+	echo -e "PS1='\n\e[32mCurrent Directory: \e[35m\w/\n\e[31;1;40mroot\e[37;0;40m@\e[36;1;40m$name~: '" >> bash.bashrc
 	clear
 	sleep 1
+	cd ..; cd ..; cd home/aut0_mak3r
 	echo -e "${GREEN}[*] ${YELLOW}Please restart your terminal."
 	echo -e "${GREEN}[*] ${BLUE}To restore the default termux, type:${YELLOW}mv -v $path/backup/bash.bashrc /data/data/com.termux/file/usr/etc/bash.bashrc "
 	pause 'press [ENTER] to go back'
