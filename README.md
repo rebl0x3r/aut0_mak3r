@@ -1,6 +1,6 @@
 # aut0 mak3r 
 
-![Screenshot](index.jpg)
+![Screenshot](index.jpeg)
 
 # Table of contents:
 * [General Information](#general-info)
