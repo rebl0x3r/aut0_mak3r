@@ -1271,14 +1271,16 @@ ${RED}[menu] ${YELLOW}Back To Main Menu
 function custom_term {
 	echo -e "${RED}[*] ${YELLOW}Customizing your terminal in thoughts to mrblackx..."
 	sleep 1
+	echo -ne "${YELLOW}[>] ${RED}Enter your name:${BLUE} "
+	read name
 	echo -e "${GREEN}[*] ${BLUE}Doing the work...."
 	sleep 2
 	cd ..; cd ..
-	cd usr/etc
+	cd /data/data/com.termux/files/usr/etc
 	cp -R bash.bashrc $HOME/aut0_mak3r/backup
 	mv -v bash.bashrc bash.bashrc.bak
 	touch bash.bashrc
-	echo -e "PS1='\n\e[32mCurrent Directory: \e[35m\w/\n\e[31;1;40mtermux\e[37;0;40m@\e[36;1;40mviperzcrew~: '" >> bash.bashrc
+	echo -e "PS1='\n\e[32mCurrent Directory: \e[35m\w/\n\e[31;1;40mtermux\e[37;0;40m@\e[36;1;40m$name~: '" >> bash.bashrc
 	clear
 	sleep 1
 	cd ..; cd ..; cd home/aut0_mak3r
