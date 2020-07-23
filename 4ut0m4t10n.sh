@@ -150,6 +150,9 @@ function command_check {
 		echo -e "${GREEN}[*] ${YELLOW}You can call the tool by: ${BLUE}tmaker"
 	elif [ -f /data/data/com.termux/files/usr/bin/tmaker ]
 	then
+		rm -rf /data/data/com.termux/files/usr/bin/tmaker
+		cp -R 4ut0m4t10n.sh /data/data/com.termux/files/usr/bin/tmaker 
+		chmod +x /data/data/com.termux/usr/bin/tmaker
 		echo -e "${GREEN}[*] ${YELLOW}You can call the tool by: ${BLUE}tmaker"
 	else
 		echo -e "${RED}[*] ${YELLOW}Tool is not callable, adding it...."
@@ -1268,8 +1271,6 @@ ${RED}[menu] ${YELLOW}Back To Main Menu
 function custom_term {
 	echo -e "${RED}[*] ${YELLOW}Customizing your terminal in thoughts to mrblackx..."
 	sleep 1
-	echo -ne "${GREEN}[*] ${YELLOW}Enter your name-:${BLUE} "
-	read name
 	echo -e "${GREEN}[*] ${BLUE}Doing the work...."
 	sleep 2
 	cd ..; cd ..
@@ -1277,11 +1278,12 @@ function custom_term {
 	cp -R bash.bashrc $HOME/aut0_mak3r/backup
 	mv -v bash.bashrc bash.bashrc.bak
 	touch bash.bashrc
-	echo -e "PS1='\n\e[32mCurrent Directory: \e[35m\w/\n\e[31;1;40mroot\e[37;0;40m@\e[36;1;40m$name~: '" >> bash.bashrc
+	echo -e "PS1='\n\e[32mCurrent Directory: \e[35m\w/\n\e[31;1;40mtermux\e[37;0;40m@\e[36;1;40mviperzcrew~: '" >> bash.bashrc
 	clear
 	sleep 1
 	cd ..; cd ..; cd home/aut0_mak3r
 	echo -e "${GREEN}[*] ${YELLOW}Please restart your terminal."
+	echo ""
 	echo -e "${GREEN}[*] ${BLUE}To restore the default termux, type:${YELLOW}mv -v $path/backup/bash.bashrc /data/data/com.termux/file/usr/etc/bash.bashrc "
 	pause 'press [ENTER] to go back'
 	termux_tools

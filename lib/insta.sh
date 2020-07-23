@@ -176,13 +176,13 @@ ${bd}${b}[${r}5${b}] ${y}Exit ${g}              Quit the Insta Tools tool${rs}
             if [ -f 4ut0m4t10n.sh ]
             then
                 bash 4ut0m4t10n.sh
-            elif [ -f 4ut0m4t10n.sh ]
-	    then
-		cd ..
+            elif [ ! -f 4ut0m4t10n.sh ]
+	        then
+		        cd ..
                 bash 4ut0m4t10n.sh
             else
-		cd $HOME/aut0_mak3r
-		bash 4ut0m4t10n.sh
+		        cd $HOME/aut0_mak3r
+		        bash 4ut0m4t10n.sh
             fi
             testt=1
             ;;

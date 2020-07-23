@@ -198,7 +198,7 @@ ${w}└─╼ ${r}$ ${c}: "
             sleep 1
             echo -e "\n${g}[i] ${b}Installing ${r}BlackHydra${b}...\n"
             sleep 0.5
-            git clone https://github.com/Gameeye98/Black-Hydra; cd Black-Hydra && chmod +rwx blackhydra.py; cd ..
+            git clone https://github.com/Gameye98/Black-Hydra; cd Black-Hydra && chmod +rwx blackhydra.py; cd ..
             sleep 1
             echo -e "\n${g}[i] ${b}Successfully installed ${r}BlackHydra.\n"
             echo -e "${g}[i] ${b}To start type: ${r}python2 blackhydra.py"

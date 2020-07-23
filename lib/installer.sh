@@ -68,7 +68,10 @@ pkg install ruby -y
 pkg update && pkg upgrade -y
 apt update && apt upgrade -y
 clear
+apt autoremove
+dpkg --configure -a
 toilet -f mono12 -F metal by
 toilet -f mono12 -F metal MrBlackX
+
 echo -e "${GREEM}[*] ${BLUE}Requirements successfully installed"
 echo -e "${PURPLE}by MrBlackX"
