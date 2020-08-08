@@ -18,6 +18,7 @@
   If you wipe a computer, you might be annoyed to install tools manually, aut0 mak3r is the tool, which is fixing
   this problem for you. Aut0 mak3r brings some modules like the ```full_config``` which is installing and configuring 
   a lot of stuff. The maker was the first name, i decided to leave the logo. If you have any errors, go here: [Bug Report]
+  Aswell i added some tools for termux, if you have any tool wish, dm me then i can add it.
   
 
 # Changelog
