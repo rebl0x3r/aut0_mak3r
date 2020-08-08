@@ -25,7 +25,8 @@ printf '\e[8;37;100t'
 
 update(){
 	up=$(git pull 2>/dev/null)
-	echo -e "${YELLOW}[*] Checking if you up-to-date...."
+	echo -e "${YELLOW}[*] ${BLUE}Checking if you up-to-date...."
+	echo ""
 	sleep 0.5
 	if [[ "$up" == "Already up to date." ]]
 	then
