@@ -24,7 +24,7 @@ printf '\e[8;37;100t'
 # Functions
 
 update(){
-	up=$(git pull)
+	up=$(git pull 2>/dev/null)
 	echo -e "${YELLOW}[*] ${BLUE}Checking if you up-to-date...."
 	echo ""
 	sleep 0.5
