@@ -24,8 +24,8 @@ printf '\e[8;37;100t'
 # Functions
 
 update(){
-	up=$(git -q pull &>/dev/null)
-	echo -e "${YELLOW}[*] ${BLUE}Checking if you up-to-date...."
+	up=$(git pull &>/dev/null)
+	echo -e "${MAGENTA}[*] ${BLUE}Checking if you up-to-date...."
 	echo ""
 	sleep 0.5
 	if [[ "$up" == "Already up to date." ]]
