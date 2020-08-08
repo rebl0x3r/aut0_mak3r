@@ -140,21 +140,29 @@ function command_check {
 
 	echo -e "${RED}[*] ${YELLOW}Checking if tool callable..."
 	echo ""
-	if [ -f /usr/bin/tmaker ]
+	os=$(uname -s)
+	if [[ "$os" == "Linux" ]]
 	then
-		echo -e "${GREEN}[*] ${YELLOW}You can call the tool by: ${BLUE}tmaker"
-	elif [ -f /data/data/com.termux/files/files/usr/bin/tmaker ]
+		if [ -f /usr/bin/tmaker ]
+		then
+			echo -e "${GREEN}[*] ${YELLOW}You can call the tool by: ${BLUE}tmaker"
+	
+		fi
+	elif [[ "$os" == "Android" ]]
 	then
-		rm -rf /data/data/com.termux/files/usr/bin/tmaker
-		cp -R 4ut0m4t10n.sh /data/data/com.termux/files/usr/bin/tmaker 
-		chmod +x /data/data/com.termux/files/usr/bin/tmaker
-		echo -e "${GREEN}[*] ${YELLOW}You can call the tool by: ${BLUE}tmaker"
-	else
-		echo -e "${RED}[*] ${YELLOW}Tool is not callable, adding it...."
-		cp -R 4ut0m4t10n.sh /data/data/com.termux/files/usr/bin/tmaker 
-		chmod +x /data/data/com.termux/files/usr/bin/tmaker
-		echo -e "${GREEN}[*] ${YELLOW}Done."
-		echo -e "${GREEN}[*] ${YELLOW}You can call the tool by: ${BLUE}tmaker"
+		if [ -f /data/data/com.termux/files/files/usr/bin/tmaker ]
+		then
+			rm -rf /data/data/com.termux/files/usr/bin/tmaker
+			cp -R 4ut0m4t10n.sh /data/data/com.termux/files/usr/bin/tmaker 
+			chmod +x /data/data/com.termux/files/usr/bin/tmaker
+			echo -e "${GREEN}[*] ${YELLOW}You can call the tool by: ${BLUE}tmaker"
+		else
+			echo -e "${RED}[*] ${YELLOW}Tool is not callable, adding it...."
+			cp -R 4ut0m4t10n.sh /data/data/com.termux/files/usr/bin/tmaker 
+			chmod +x /data/data/com.termux/files/usr/bin/tmaker
+			echo -e "${GREEN}[*] ${YELLOW}Done."
+			echo -e "${GREEN}[*] ${YELLOW}You can call the tool by: ${BLUE}tmaker"
+		fi
 	fi
 
 }
