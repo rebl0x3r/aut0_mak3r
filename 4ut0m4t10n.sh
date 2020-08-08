@@ -32,7 +32,7 @@ update(){
 	then
 		echo -e "${GREEN}[i] ${BLUE}Already on the latest version :-)"
 	else
-		$up &>/dev/null
+		git pull &>/dev/null
 		echo -e "${MAGENTA}[*] ${BLUE}Tool is updated to version $version."
 	fi
 
