@@ -5,7 +5,7 @@ backup_window_size="printf '\e[8;24;80t'"
 ipaddr="$(curl ifconfig.me)"
 ipaddr2="$(curl icanhazip.com)"
 host="$(uname -n)"
-version="0.3"
+version="0.3b"
 
 #some colors
 RED="\e[31m"
