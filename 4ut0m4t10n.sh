@@ -87,11 +87,11 @@ function geany {
 function err_report {
 		if exit[1]
 		then
-			echo -e $RED "Please report all errors to: ${BLUE}https://github.com/ViperZCrew"
+			echo -e $RED "Please report all errors to: ${BLUE}https://github.com/rebl0x3r/aut0_mak3r/issues"
 			read -p "Do you want to report error?[Y/N]: " rprt
 			if [[ $rprt == "y" || $rprt == "Y" ]]
 			then 
-				firefox https://github.com/ViperZCrew
+				firefox https://github.com/rebl0x3r/aut0_mak3r/issues
 			else
 				err_solver
 			fi
@@ -160,7 +160,7 @@ function command_check {
 	then
 		if [ -f /usr/bin/tmaker ]
 		then
-			rm -rf /usr/bin/tmaker
+			sudo rm -rf /usr/bin/tmaker
 			sudo cp -R 4ut0m4t10n.sh /usr/bin/tmaker 
 			sudo chmod +x /usr/bin/tmaker
 			echo -e "${GREEN}[*] ${YELLOW}You can call the tool by: ${BLUE}tmaker"
