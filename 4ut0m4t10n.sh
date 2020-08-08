@@ -2,10 +2,10 @@
 
 path=$(pwd)
 backup_window_size="printf '\e[8;24;80t'"
-ipaddr="$(curl ifconfig.me &>/dev/null)"
-ipaddr2="$(curl icanhazip.com &>/dev/null)"
+ipaddr="$(curl ifconfig.me)"
+ipaddr2="$(curl icanhazip.com)"
 host="$(uname -n)"
-version="0.2c"
+version="0.3"
 
 #some colors
 RED="\e[31m"
@@ -87,11 +87,11 @@ function geany {
 function err_report {
 		if exit[1]
 		then
-			echo -e $RED "Please report all errors to: ${BLUE}https://github.com/rebl0x3r/aut0_mak3r/issues"
+			echo -e $RED "Please report all errors to: ${BLUE}https://github.com/ViperZCrew"
 			read -p "Do you want to report error?[Y/N]: " rprt
 			if [[ $rprt == "y" || $rprt == "Y" ]]
 			then 
-				firefox https://github.com/rebl0x3r/aut0_mak3r/issues
+				firefox https://github.com/ViperZCrew
 			else
 				err_solver
 			fi
@@ -149,6 +149,16 @@ function package_installer {
 		echo -e $GREEN "Installed [✓]"
 	fi
 
+	echo -e $BOLD ''	
+	echo -ne "${CYAN}Speedtest... -> "
+	sleep 0.5
+	if ! hash speedtest 2>/dev/null;then
+		echo -e $RED "Not installed [✗]"
+		apt install speedtest -y
+	else
+		echo -e $GREEN "Installed [✓]"
+	fi
+
 }	
 
 function command_check {
@@ -194,109 +204,138 @@ function pause {
 	read -p "$*"
 }
 
-function full_config {
-	cd $path/lib
-	cp -R *.bin /lib/firmware/i915
-	chmod a+x *.sh
-	chmod a+x proxy.py
-	cd ..
-	cd openvpn
-	chmod a+x openvpn.sh
-	cd ..
+full_config(){
 	clear
-	echo -e "${GREEN}Checking root..."
-	echo ''
-	sleep 1
-	if [ "$EUID" -ne 0 ]
-	then
-		echo -e "${RED}[✗] No root detected >:("
-	else
-		echo -e "${GREEN}[✓] Root Access :)"
-	fi
-	clear
-	sleep 1.5
-	pause 'Press [Enter] to continue to start....'
-	clear
-	echo -e $YELLOW"[!] Starting package installer.."
-	sleep 0.5
+	figlet -f slant "FullConfig"
+	echo -e "
+
+${RED}[1] ${YELLOW}Edit Sources
+${RED}[2] ${YELLOW}Package installation
+${RED}[3] ${YELLOW}Kali Packages
+${RED}[4] ${YELLOW}Custom Update
+${RED}[5] ${YELLOW}Install Tor Browser
+${RED}[6] ${YELLOW}Change DNS
+${RED}[7] ${YELLOW}Generate Strong Password
+${RED}[8] ${YELLOW}Setup OpenVPN account
+${RED}[9] ${YELLOW}Install Editor
+${RED}[10] ${YELLOW}Install Burner
+${RED}[11] ${YELLOW}Check Internet Connection
+
+${RED}[back] ${YELLOW}Back To Main Menu
+	"
+
+	# Function 
 	
-	package_installer
-	echo -e "${CYAN}[!] Configuring your source list."
-	sleep 0.7
-	clear
-	echo -e "${CYAN}[!] Configuring your source list.."
-	sleep 0.7
-	clear	
-	echo -e "${CYAN}[!] Configuring your source list..."
-	sleep 0.7
-	rm -rf /etc/apt/sources.list
-	touch /etc/apt/sources.list
-	echo "deb http://http.kali.org/kali kali-rolling main non-free contrib
-deb-src http://http.kali.org/kali kali-rolling main non-free contrib" >> /etc/apt/sources.list
-	cound_words=$(wc -l /etc/apt/sources.list | cut -d\  -f 1)
-	sleep 1
-	echo -e $BLUE"Added ${RED}$cound_words ${BLUE}lines to sources list."
-	clear
-	pause 'Press [Enter] to continue....'
-	echo -e $BOLD ""
-	echo -e $YELLOW ""
-	clear
-	read -p "[*] Do you want to see the added lines[y/N]? " sl
-	if [[ $sl == "y" || $sl == "Y" ]]
-	then
+	sources(){
 		cd lib
-		tilix -e bash source.sh
-		sleep 0.5
-		killp=$(ps aux | grep xterm | head -1  | awk '{print $2}')
-		kill -9 $killp 2>/dev/null
+		sudo cp -R *.bin /lib/firmware/i915
+		chmod a+x *.sh
+		chmod a+x proxy.py
 		cd ..
-	else
-		echo ""
-		echo -e "${RED}[skiping] ${YELLOW}Ignoring new entries at ${RED}/etc/apt/sources.list..."
+		cd openvpn
+		chmod a+x openvpn.sh
+		cd ..
+		clear
+		echo -e "${GREEN}Checking root..."
+		echo ''
 		sleep 1
-	fi
-	clear
-	echo -e $BOLD ""
-	echo -e $RED"[!] Importing kali.org archive key:"
-	wget -q -O - https://www.kali.org/archive-key.asc | apt-key add -
-	sleep 2
-	clear
-	echo -e "${YELLOW}[!] Updating system."
-	sudo apt-key adv --keyserver hkp://pool.sks-keyservers.net:80 --recv-keys 74A941BA219EC810
-	apt update
-	apt upgrade -y
-	apt full-upgrade -y
-	echo ""
-	echo -e "${GREEN}[✓] ${CYAN}Your system has been updated."
-	pause 'Press [Enter] to continue....'
-	sleep 1
-	clear
-	echo -e $CYAN ""
-	echo -e $BOLD ""
-	read -p "Do you want to see your linux version[y/N]? " kv
-	if [[ $kv == "y" || $kv == "Y" ]]
-	then
-		vk=$(cat /etc/os-release | grep VERSION= | sed -n 's/[A-Z"=]//g;p')
-		echo -e "${BOLD}"
-		echo -e "${GREEN}[*] Your kali version is:${RED} $vk${GREEN}."
-	else
-		echo -e "${GREEN}[✓] ${CYAN}Done!"
+		if [ "$EUID" -ne 0 ]
+		then
+			echo -e "${RED}[✗] No root detected >:("
+		else
+			echo -e "${GREEN}[✓] Root Access :)"
+		fi
+		clear
+		sleep 1.5
+		pause 'Press [Enter] to continue to start....'
+		clear
+		echo -e $YELLOW"[!] Starting package checking dependencies.."
+		sleep 0.5
+		package_installer
+		echo -e "${CYAN}[!] Configuring your source list."
+		sleep 0.7
+		clear
+		echo -e "${CYAN}[!] Configuring your source list.."
+		sleep 0.7
+		clear	
+		echo -e "${CYAN}[!] Configuring your source list..."
+		sleep 0.7
+		sudo rm -rf /etc/apt/sources.list
+		sudo touch /etc/apt/sources.list
+		echo "deb http://http.kali.org/kali kali-rolling main non-free contrib
+deb-src http://http.kali.org/kali kali-rolling main non-free contrib" >> /etc/apt/sources.list
+		cound_words=$(wc -l /etc/apt/sources.list | cut -d\  -f 1)
+		sleep 1
+		echo -e $BLUE"Added ${RED}$cound_words ${BLUE}lines to sources list."
+		clear
 		pause 'Press [Enter] to continue....'
-	fi
-	echo ""
-	dpkg --add-architecture i386
-	sleep 1
-	echo -e $MAGENTA ""
-	read -p "[*] Do you want install packages[y/N]? " pck
-	if [[ $pck == "y" || $pck == "Y" ]]
-	then
+		echo -e $BOLD ""
+		echo -e $YELLOW ""
 		clear
-		echo -e "[~] ${GREEN}Installing new packages, get something to drink and relax.."
-		apt install neofetch lynx xpdf speedtest-cli firmware-misc-nonfree firmware-netxen firmware-realtek python3 tor tor-arm torbrowser-launcher proxychains filezilla gdebi geany neofetch git bettercap ngrep curl mdk3 mdk4 bc cowpatty php-cgi php apache2 libssl-dev gpa gnupg2 net-tools wget postfix libncurses5 libxml2 tcpdump libexiv2-dev build-essential python-pip ssh ssh-tools htop stacer bleachbit leafpad snapd yersinia cmake make g++ gcc openssh-server openssl screen wapiti whatweb nmap golismero host wget uniscan wafw00f dirb davtest theharvester xsser dnsrecon fierce dnswalk whois sslyze lbd dnsenum dmitry davtest nikto dnsmap netcat gvfs gvfs-common gvfs-daemons gvfs-libs gconf-service gconf2 gconf2-common gvfs-bin psmisc filezilla filezilla-common gdebi vlc firmware-misc-nonfree firmware-netxen firmware-realtek apktool maven default-jdk default-jre openjdk-8-jdk libncurses5-dev lib32z1 lib32ncurses6 -y
-		sed -i s/geteuid/getppid/g /usr/bin/vlc
+		read -p "[*] Do you want to see the added lines[y/N]? " sl
+		if [[ $sl == "y" || $sl == "Y" ]]
+		then
+			cd lib
+			tilix -e bash source.sh
+			sleep 0.5
+			killp=$(ps aux | grep xterm | head -1  | awk '{print $2}')
+			kill -9 $killp 2>/dev/null
+			cd ..
+		else
+			echo ""
+			echo -e "${RED}[skiping] ${YELLOW}Ignoring new entries at ${RED}/etc/apt/sources.list..."
+			sleep 1
+		fi
 		clear
-		echo -e $GREEN "[✓] ${CYAN}Packages has been successfully installed."
+		echo -e $BOLD ""
+		echo -e $RED"[!] Importing kali.org archive key:"
+		wget -q -O - https://www.kali.org/archive-key.asc | apt-key add -
 		sleep 2
+		echo -e "${GREEN}[i] ${BLUE}Done."
+		pause 'Press [Enter] go back to menu'
+		full_config
+	}
+
+	packages(){
+		echo -e "${YELLOW}[!] Updating system."
+		sudo apt-key adv --keyserver hkp://pool.sks-keyservers.net:80 --recv-keys 74A941BA219EC810
+		sudo apt update; sudo apt upgrade -y; sudo apt full-upgrade -y; echo ""
+		echo -e "${GREEN}[✓] ${CYAN}Your system has been updated."
+		pause 'Press [Enter] to continue....'
+		sleep 1
+		clear
+		echo -e $CYAN ""
+		echo -e $BOLD ""
+		read -p "Do you want to see your linux version[y/N]? " kv
+		if [[ $kv == "y" || $kv == "Y" ]]
+		then
+			vk=$(cat /etc/os-release | grep VERSION= | sed -n 's/[A-Z"=]//g;p')
+			echo -e "${BOLD}"
+			echo -e "${GREEN}[*] Your kali version is:${RED} $vk${GREEN}."
+		else
+			echo -e "${GREEN}[✓] ${CYAN}Done!"
+			pause 'Press [Enter] to continue....'
+		fi
+		echo ""
+		dpkg --add-architecture i386
+		sleep 1
+		echo -e $MAGENTA ""
+		read -p "[*] Do you want install packages[y/N]? " pck
+		if [[ $pck == "y" || $pck == "Y" ]]
+		then
+			clear
+			echo -e "[~] ${GREEN}Installing new packages, get something to drink and relax.."
+			apt install neofetch lynx xpdf speedtest-cli firmware-misc-nonfree firmware-netxen firmware-realtek python3 tor tor-arm torbrowser-launcher proxychains filezilla gdebi geany neofetch git bettercap ngrep curl mdk3 mdk4 bc cowpatty php-cgi php apache2 libssl-dev gpa gnupg2 net-tools wget postfix libncurses5 libxml2 tcpdump libexiv2-dev build-essential python-pip ssh ssh-tools htop stacer bleachbit leafpad snapd yersinia cmake make g++ gcc openssh-server openssl screen wapiti whatweb nmap golismero host wget uniscan wafw00f dirb davtest theharvester xsser dnsrecon fierce dnswalk whois sslyze lbd dnsenum dmitry davtest nikto dnsmap netcat gvfs gvfs-common gvfs-daemons gvfs-libs gconf-service gconf2 gconf2-common gvfs-bin psmisc filezilla filezilla-common gdebi vlc firmware-misc-nonfree firmware-netxen firmware-realtek apktool maven default-jdk default-jre openjdk-8-jdk libncurses5-dev lib32z1 lib32ncurses6 -y
+			sed -i s/geteuid/getppid/g /usr/bin/vlc
+			clear
+			echo -e $GREEN "[✓] ${CYAN}Packages has been successfully installed."
+			echo -e "${GREEN}[i] ${BLUE}Done."
+			pause 'Press [Enter] go back to menu'
+			full_config
+		fi
+	}
+
+	kali_pack(){
 		clear
 		echo ''
 		echo -e $BOLD "${BLUE}
@@ -329,9 +368,9 @@ ${BLUE}[24] ${RED}Windows Tools		-:- ${YELLOW}Kali Linux Windows resources
 ${BLUE}[25] ${RED}Wireless Tools 		-:- ${YELLOW}Kali Linux wireless tools menu
 ${BLUE}[all] ${RED}All Tools			-:- ${YELLOW}Installing all tools of kali
 ${BLUE}[c] ${RED}Skipping this and will skip this.
+${BLUE}[back] ${RED}Back
 ${BLUE}[q] ${RED}Quit the module
 "
-
 		txt=0
 		while [ $txt = 0 ] 
 		do
@@ -445,24 +484,24 @@ ${BLUE}[q] ${RED}Quit the module
 				c)
 				txt=1
 				;;
+				back)
+				full_config
+				txt=1
+				;;
 				q)
-				bash 4ut0m4t10n.sh 
 				txt=1
 				;;
 			esac
 		done
-	fi
-	sleep 1.5
-	clear
-	printf "${RED}[*] ${YELLOW}Do you want to make a update command in one[Y/N]? "	
-	read upd
-	if [[ $upd == "y" || $upd == "Y" ]]
-	then
+	}
+
+	update(){
+		clear
 		echo ""
 		printf "${RED}[?] ${YELLOW}Name of command: "
 		read updd
 		echo "
-function $updd {
+$updd(){
 
 	apt-get update &&
 	apt-get dist-upgrade -y &&
@@ -473,49 +512,59 @@ function $updd {
 		echo -e "${RED}[!] ${BLUE}Type ${RED}$updd ${BLUE}to make a full update for your kali linux."
 		echo -e "${MAGENTA}[!] ${RED}To see changes, close terminal and start terminal again!"
 		clear
-	else
 		echo -e $BOLD ""
-		clear
-	fi
-	printf "${RED}[*] ${YELLOW}Do you want to install tor browser[Y/N]? "
-	read tr
-	if [[ $tr == "y" || $tr == "Y" ]]
-	then
-		echo -e "${RED}[*] ${YELLOW}Installing Tor Browser.."
-		sleep 0.5
-		clear
-		echo -e "${RED}[*] ${YELLOW}Installing Tor Browser..."
-		sleep 0.5
-		clear
-		echo -e "${RED}[*] ${YELLOW}Installing Tor Browser...."
-		sleep 0.5
-		clear
-		echo -e "${RED}[*] ${YELLOW}Installing Tor Browser.."
-		sleep 1.5
-		clear
-		echo -e "${RED}[✓] ${GREEN}Repositories already exists in file."
-		echo -e "${RED}[*] ${YELLOW}Adding key."
-		wget -O- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | sudo apt-key add -
-		echo -e "${RED}[*] ${YELLOW}Updating & Configurate changes."
-		apt update
-		apt-get install tor torbrowser-launcher deb.torproject.org-keyring -y
-		echo -e "${GREEN}[✓] ${CYAN}Done!."
-		pause 'Press [Enter] to continue....'
-		clear
-		read -p "Do you want to start tor browser[Y/N]? " str
-		if [[ $str == "y" || $str == "Y" ]]
+		echo -e "${GREEN}[i] ${BLUE}Done."
+		pause 'Press [Enter] go back to menu'
+		full_config
+	}
+
+	tor(){
+		printf "${RED}[*] ${YELLOW}Do you want to install tor browser[Y/N]? "
+		read tr
+		if [[ $tr == "y" || $tr == "Y" ]]
 		then
-			cd /root/Downloads
-			curl -LO https://dist.torproject.org/torbrowser/9.0.5/tor-browser-linux32-9.0.5_en-US.tar.xz
-			tar -xvf tor-browser-linux32-9.0.5_en-US.tar.xz
-			cd tor-browser_en-US
-			chmod +rwx start-tor-browser.desktop
-			cd Browser
-			echo -e "${RED}[*] ${YELLOW}Remove line 94-98, save and exit it."
-			pause 'Press [ENTER] to edit the tor file.'
-			gedit start-tor-browser
-			./start-tor-browser
+			echo -e "${RED}[*] ${YELLOW}Installing Tor Browser.."
+			sleep 0.5
+			clear
+			echo -e "${RED}[*] ${YELLOW}Installing Tor Browser..."
+			sleep 0.5
+			clear
+			echo -e "${RED}[*] ${YELLOW}Installing Tor Browser...."
+			sleep 0.5
+			clear
+			echo -e "${RED}[*] ${YELLOW}Installing Tor Browser.."
+			sleep 1.5
+			clear
+			echo -e "${RED}[✓] ${GREEN}Repositories already exists in file."
+			echo -e "${RED}[*] ${YELLOW}Adding key."
+			wget -O- https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | sudo apt-key add -
+			echo -e "${RED}[*] ${YELLOW}Updating & Configurate changes."
+			apt update
+			apt-get install tor torbrowser-launcher deb.torproject.org-keyring -y
+			echo -e "${GREEN}[✓] ${CYAN}Done!."
 			pause 'Press [Enter] to continue....'
+			clear
+			read -p "Do you want to start tor browser[Y/N]? " str
+			if [[ $str == "y" || $str == "Y" ]]
+			then
+				cd /root/Downloads
+				curl -LO https://dist.torproject.org/torbrowser/9.0.5/tor-browser-linux32-9.0.5_en-US.tar.xz
+				tar -xvf tor-browser-linux32-9.0.5_en-US.tar.xz
+				cd tor-browser_en-US
+				chmod +rwx start-tor-browser.desktop
+				cd Browser
+				echo -e "${RED}[*] ${YELLOW}Remove line 94-98, save and exit it."
+				pause 'Press [ENTER] to edit the tor file.'
+				gedit start-tor-browser
+				./start-tor-browser
+				echo -e "${GREEN}[i] ${BLUE}Done."
+				pause 'Press [Enter] go back to menu'
+				full_config
+			else
+				echo -e "${GREEN}[i] ${BLUE}Done."
+				pause 'Press [Enter] go back to menu'
+				full_config
+			fi
 		else
 			echo -e "${GREEN}[~] ${RED}Skipping.."
 			sleep 0.5
@@ -527,137 +576,147 @@ function $updd {
 			sleep 0.5
 			clear
 			echo -e "${GREEN}[~] ${RED}Skipping..."
+			pause 'Press [Enter] to continue....'
 			clear
-	
-		fi
-	else
-		echo -e "${GREEN}[~] ${RED}Skipping.."
-		sleep 0.5
-		clear
-		echo -e "${GREEN}[~] ${RED}Skipping...."
-		sleep 0.5
-		clear
-		echo -e "${GREEN}[~] ${RED}Skipping."
-		sleep 0.5
-		clear
-		echo -e "${GREEN}[~] ${RED}Skipping..."
-		pause 'Press [Enter] to continue....'
-		clear
-	fi	
-	echo -e "${YELLOW}[*] ${BLUE}Adding secure DNS server in /etc/resolv.conf."
-	clear 
-	echo -e "${RED}[*] ${YELLOW}Listing your currently dns server:(ignoring comments)"
-	cat /etc/resolv.conf | sed '/#/d'
-	sleep 1
-	read -p "[?] Backup resolv.conf file[Y/N]?: " bck
-	if [[ $bck == "y" || $bck == "Y" ]]
-	then
-		echo -e "${BLUE}[*] ${GREEN}Backuping original file..."
-		sleep 0.2
-		cp -R /etc/resolv.conf $path/backup
+			echo -e "${GREEN}[i] ${BLUE}Done."
+			pause 'Press [Enter] go back to menu'
+			full_config
+		fi	
 
-	else
-		echo -e "${GREEN}[~] ${RED}Skipping.."
-		sleep 0.5
-		clear
-		echo -e "${GREEN}[~] ${RED}Skipping...."
-		sleep 0.5
-		clear
-		echo -e "${GREEN}[~] ${RED}Skipping."
-		sleep 0.5
-		clear
-		echo -e "${GREEN}[~] ${RED}Skipping..."
-		pause 'Press [Enter] to continue....'
-		clear
-	fi
-	pause 'Press [Enter] to continue..'
-	sleep 0.5
-	clear
-	printf "${MAGENTA}[*] ${GREEN}Anonymous DNS, Fast DNS or Quit(skip)[A/F/Q]?: "
-	read dns
-	if [[ $dns == "A" || $dns == "A" ]]
-	then
-		clear
-		echo -e "${BLUE}"
-		figlet An0nM0de
-		sleep 1
-		echo -e "${RED}[!] ${MAGENTA}Adding following IP address to your DNS list: "
-		sleep 0.5
-		cat lib/anon_dns.txt | sed -r '/#/d'
-		rm -rf /etc/resolv.conf 
-		cat lib/anon_dns.txt 2>/dev/null | tail -n2 >> /etc/resolv.conf
-		sleep 0.8
-		echo -e "${GREEN}[*] ${MAGENTA}Done."
-		pause 'Press [Enter] continue.'
+	}
 
-	elif [[ $dns == "f" || $dns == "F" ]]		
-	then
+	dns(){
+		clear
+		echo -e "${YELLOW}[*] ${BLUE}Adding secure DNS server in /etc/resolv.conf."
 		clear 
-		echo -e "${BLUE}"
-		figlet F4stM0de
+		echo -e "${RED}[*] ${YELLOW}Listing your currently dns server:(ignoring comments)"
+		cat /etc/resolv.conf | sed '/#/d'
 		sleep 1
-		echo -e "${RED}[!] ${MAGENTA}Adding following IP address to your DNS list: "
-		sleep 0.5
-		cat lib/fast_dns.txt | sed -r '/#/d'
-		#sed -r '1,2 s/#/\r/' 
-		rm -rf /etc/resolv.conf
-		cat lib/fast_dns.txt 2>/dev/null | tail -n2 >> /etc/resolv.conf
-		sleep 0.8
-		echo -e "${GREEN}[*] ${MAGENTA}Done."
-		pause 'Press [Enter] continue.'
-	else
-		echo -e "${GREEN}[*] ${MAGENTA} Skipping."
-	fi
-	clear
-	echo -ne "${GREEN}[*] ${BLUE}Do you want to generate a password for your own security?[Y/N]?:${GREEN} "
-	read pwdg
-	if [[ $pwdg == "y" || $pwdg == "Y" ]]
-	then
-		bash lib/pwd.sh
-	fi
-	clear
-	printf '[?] Do you want to configure an openvpn account?[y/N]'
-	read ovpn
-	if [[ $ovpn == "y" || $ovpn == "Y" ]]
-	then
-		echo -e "${RED}[*]${YELLOW}Getting credentials..."
-		sleep 1.2
-		echo -e "${GREEN}[*] ${YELLOW}Successfully got credentials."
-		echo -e "${RED}[*] ${YELLOW}Your username is: ${GREEN}${username}"
-		echo -e "${RED}[*] ${YELLOW}Your password is: ${GREEN}${password}"
-		echo -e $GREEN ""
-		read -p "[?] Do you want to make an ovpn account now?[Y/N]: " moa
-		if [[ $moa == "y" || $moa == "Y" ]]
+		read -p "[?] Backup resolv.conf file[Y/N]?: " bck
+		if [[ $bck == "y" || $bck == "Y" ]]
 		then
-			if [ -d $path/openvpn ]
-			then 
-				cd openvpn
-				wget https://freevpnme.b-cdn.net/FreeVPN.me-OpenVPN-Bundle-January-2020.zip
-				unzip FreeVPN.me-OpenVPN-Bundle-January-2020.zip
-				rm FreeVPN.me-OpenVPN-Bundle-January-2020.zip
-				find -iname \*.* | rename -v "s/ /-/g" 2>/dev/null
-				xterm -e bash openvpn.sh
-			else
-				mkdir openvpn
-				cd openvpn
-				wget https://freevpnme.b-cdn.net/FreeVPN.me-OpenVPN-Bundle-January-2020.zip
-				unzip FreeVPN.me-OpenVPN-Bundle-January-2020.zip
-				rm FreeVPN.me-OpenVPN-Bundle-January-2020.zip
-				find -iname \*.* | rename -v "s/ /-/g" 2>/dev/null
-				xterm -e bash openvpn.sh
-			fi
+			echo -e "${BLUE}[*] ${GREEN}Backuping original file..."
+			sleep 0.2
+			cp -R /etc/resolv.conf $path/backup
+
+		else
+			echo -e "${GREEN}[~] ${RED}Skipping.."
+			sleep 0.5
+			clear
+			echo -e "${GREEN}[~] ${RED}Skipping...."
+			sleep 0.5
+			clear
+			echo -e "${GREEN}[~] ${RED}Skipping."
+			sleep 0.5
+			clear
+			echo -e "${GREEN}[~] ${RED}Skipping..."
+			pause 'Press [Enter] to continue....'
+			clear
 		fi
+		pause 'Press [Enter] to continue..'
+		sleep 0.5
 		clear
-		#xterm -e cd openvpn; bash openvpn.sh&
-	else
-		echo -e "${RED}[!] ${BLUE}Skipping..."
-		#err_solver
-	fi
-	clear
-	r=0
-	while [ $r = 0 ]
-		do
-		echo -e "${YELLOW}EDITOR INSTALLATION MENU ${BLUE}
+		printf "${MAGENTA}[*] ${GREEN}(A)nonymous DNS, (F)ast DNS or (Q)uit(skip)[A/F/Q]?: "
+		read dns
+		if [[ $dns == "A" || $dns == "A" ]]
+		then
+			clear
+			echo -e "${BLUE}"
+			figlet An0nM0de
+			sleep 1
+			echo -e "${RED}[!] ${MAGENTA}Adding following IP address to your DNS list: "
+			sleep 0.5
+			cat lib/anon_dns.txt | sed -r '/#/d'
+			rm -rf /etc/resolv.conf 
+			cat lib/anon_dns.txt 2>/dev/null | tail -n2 >> /etc/resolv.conf
+			sleep 0.8
+			echo -e "${GREEN}[i] ${BLUE}Done."
+			pause 'Press [Enter] go back to menu'
+			full_config
+
+		elif [[ $dns == "f" || $dns == "F" ]]		
+		then
+			clear 
+			echo -e "${BLUE}"
+			figlet F4stM0de
+			sleep 1
+			echo -e "${RED}[!] ${MAGENTA}Adding following IP address to your DNS list: "
+			sleep 0.5
+			cat lib/fast_dns.txt | sed -r '/#/d'
+			#sed -r '1,2 s/#/\r/' 
+			rm -rf /etc/resolv.conf
+			cat lib/fast_dns.txt 2>/dev/null | tail -n2 >> /etc/resolv.conf
+			sleep 0.8
+			echo -e "${GREEN}[i] ${BLUE}Done."
+			pause 'Press [Enter] go back to menu'
+			full_config
+		else
+			echo -e "${GREEN}[i] ${BLUE}Skipped."
+			pause 'Press [Enter] go back to menu'
+			full_config
+		fi
+	}
+
+	password(){
+		clear
+		echo -ne "${GREEN}[*] ${BLUE}Do you want to generate a password for your own security?[Y/N]?:${GREEN} "
+		read pwdg
+		if [[ $pwdg == "y" || $pwdg == "Y" ]]
+		then
+			bash lib/pwd.sh
+		fi
+		echo -e "${GREEN}[i] ${BLUE}Done."
+		pause 'Press [Enter] go back to menu'
+		full_config
+	}
+
+
+	openvpn(){
+		printf '[?] Do you want to configure an openvpn account?[y/N]'
+		read ovpn
+		if [[ $ovpn == "y" || $ovpn == "Y" ]]
+		then
+			echo -e "${RED}[*]${YELLOW}Getting credentials..."
+			sleep 1.2
+			echo -e "${GREEN}[*] ${YELLOW}Successfully got credentials."
+			echo -e "${RED}[*] ${YELLOW}Your username is: ${GREEN}${username}"
+			echo -e "${RED}[*] ${YELLOW}Your password is: ${GREEN}${password}"
+			echo -e $GREEN ""
+			read -p "[?] Do you want to make an ovpn account now?[Y/N]: " moa
+			if [[ $moa == "y" || $moa == "Y" ]]
+			then
+				if [ -d $path/openvpn ]
+				then 
+					cd openvpn
+					wget https://freevpnme.b-cdn.net/FreeVPN.me-OpenVPN-Bundle-January-2020.zip
+					unzip FreeVPN.me-OpenVPN-Bundle-January-2020.zip
+					rm FreeVPN.me-OpenVPN-Bundle-January-2020.zip
+					find -iname \*.* | rename -v "s/ /-/g" 2>/dev/null
+					xterm -e bash openvpn.sh
+				else
+					mkdir openvpn
+					cd openvpn
+					wget https://freevpnme.b-cdn.net/FreeVPN.me-OpenVPN-Bundle-January-2020.zip
+					unzip FreeVPN.me-OpenVPN-Bundle-January-2020.zip
+					rm FreeVPN.me-OpenVPN-Bundle-January-2020.zip
+					find -iname \*.* | rename -v "s/ /-/g" 2>/dev/null
+					xterm -e bash openvpn.sh
+				fi
+			fi
+			clear
+			#xterm -e cd openvpn; bash openvpn.sh&
+		else
+			echo -e "${GREEN}[i] ${BLUE}Skipped."
+			pause 'Press [Enter] go back to menu'
+			full_config
+		fi
+	}
+
+	editor(){
+		r=0
+		while [ $r = 0 ]
+			do
+			echo -e "${YELLOW}EDITOR INSTALLATION MENU ${BLUE}
 
 - - 	Brackets	- -
 		
@@ -673,98 +732,168 @@ function $updd {
 
 ${RED}Type the letter in () in lowercase f.e: a for atom.			
 		"
-		echo -ne "${GREEN}[?] Which linux code editor you would use?: "
-		read name
-		case "$name" in
-			b)
-			brackets
-			r=1
+			echo -ne "${GREEN}[?] Which linux code editor you would use?: "
+			read name
+			case "$name" in
+				b)
+				brackets
+				r=1
+				;;
+				a)
+				atom
+				r=1
+				;;
+				v)
+				visualcode
+				r=1
+				;;
+				b)
+				bluefish
+				r=1
+				;;
+				g)
+				geany
+				r=1
+				;;
+				s)
+				r=1
+				;;
+				*)
+				echo '[!] Wrong command!'
+				sleep 1
+				r=0
+				;;
+			esac
+		done
+	}
+
+	iso(){
+		echo -e $RED "[*] ${YELLOW}Loading some other configurating options..."
+		sleep 2
+		clear
+		echo -ne $RED"[?] ${MAGENTA}Do you want to install an ISO burner[Y/N]?: "
+		read etch
+		if [[ $etch == "Y" || $etch == "y" ]]
+		then
+			clear
+			cd /root/Downloads
+			curl -LO https://github.com/balena-io/etcher/releases/download/v1.5.80/balena-etcher-electron-1.5.80-linux-x64.zip
+			unzip balena-etcher-electron-1.5.80-linux-x64.zip
+			rm balena-etcher-electron-1.5.80-linux-x64.zip
+			if [ -f /usr/bin/iso-burner ]
+				then
+				clear
+				echo -e "${GREEN}[*] ${MAGENTA}File already exists."
+			else
+				clear
+				echo -e "${RED}[!] ${MAGENTA}File not exists, will doing it for you."
+				cd /root/Downloads
+				mv -v balenaEtcher-1.5.80-x64.AppImage iso-burner &>/dev/null
+				mv -v iso-burner /usr/bin &>/dev/null
+			fi
+			clear
+			echo -e "${GREEN}[*] ${BLUE}You have successfully installed balena etcher."
+			echo -e "${GREEN}[*] ${BLUE}To run this tool type ${RED}iso-burner ${BLUE}do not remove the file from /usr/bin."
+			sleep 0.3
+		fi
+		pause 'Press [Enter] go back to menu'
+		full_config
+	}
+
+	connection(){
+		clear
+		echo -e "${RED}[!] ${CYAN}Testing your internet speed right now..."
+		sleep 2
+		cd lib
+		echo ""
+		rm results.txt
+		speedtest >> results.txt
+		echo -ne "${GREEN}[*] ${MAGENTA}Your provider is: "
+		cat results.txt | grep from | awk '{print $3 " " $4 " " $5}'
+		sleep 0.5
+		echo -ne "${GREEN}[*] ${MAGENTA}Your ms/ping is: "
+		head -n5 results.txt | tail -1 | awk 'NF>1{print $8, $NF}'
+		sleep 0.5
+		echo -ne "${GREEN}[*] ${MAGENTA}Your download speed is: "
+		cat results.txt | grep Download | awk '{print $2, $3}'
+		sleep 0.5
+		echo -ne "${GREEN}[*] ${MAGENTA}Your upload speed is:"
+		cat results.txt | grep Upload | awk '{print $2, $3}'
+		sleep 1
+		echo -e "${RED}[!] ${BLUE}Your original IP is: ${YELLOW}$ipaddr"
+		echo -ne "${GREEN}[*] ${MAGENTA}Your current IP address is : "
+		curl ipinfo.io/ip
+		cd ..
+		echo ""
+		echo -e "${GREEN}[✓] ${YELLOW}Configuring successfully."	
+		echo -e "${GREEN}[i] ${BLUE}Skipped."
+		pause 'Press [Enter] go back to menu'
+		full_config
+	}
+
+	fc=0
+	while [ $fc = 0 ]
+	do
+		echo -ne "${BLUE}【 mak3r@root 】${YELLOW}/full_config ${BLUE}~>:${RED} "
+		read f
+		case "$f" in
+			1)
+			sources
+			fc=1
 			;;
-			a)
-			atom
-			r=1
+			2)
+			packages
+			fc=1
 			;;
-			v)
-			visualcode
-			r=1
+			3)
+			kali_pack
+			fc=1
 			;;
-			b)
-			bluefish
-			r=1
+			4)
+			update
+			fc=1
 			;;
-			g)
-			geany
-			r=1
+			5)
+			tor
+			fc=1
 			;;
-			s)
-			r=1
+			6)
+			dns
+			fc=1
+			;;
+			7)
+			password
+			fc=1
+			;;
+			8)
+			openvpn
+			fc=1
+			;;
+			9)
+			editor
+			fc=1
+			;;
+			10)
+			iso
+			fc=1
+			;;
+			11)
+			connection
+			fc=1
+			;;
+			back)
+			main
+			fc=1
 			;;
 			*)
-			echo '[!] Wrong command!'
-			sleep 1
-			r=0
+			echo -e "${RED}Wrong input!"
+			fc=0
 			;;
 		esac
 	done
-	clear
-	echo -e $RED "[*] ${YELLOW}Loading some other configurating options..."
-	sleep 2
-	clear
-	echo -ne $RED"[?] ${MAGENTA}Do you want to install an ISO burner[Y/N]?: "
-	read etch
-	if [[ $etch == "Y" || $etch == "y" ]]
-	then
-		clear
-		cd /root/Downloads
-		curl -LO https://github.com/balena-io/etcher/releases/download/v1.5.80/balena-etcher-electron-1.5.80-linux-x64.zip
-		unzip balena-etcher-electron-1.5.80-linux-x64.zip
-		rm balena-etcher-electron-1.5.80-linux-x64.zip
-		if [ -f /usr/bin/iso-burner ]
-		then
-			clear
-			echo -e "${GREEN}[*] ${MAGENTA}File already exists."
-		else
-			clear
-			echo -e "${RED}[!] ${MAGENTA}File not exists, will doing it for you."
-			cd /root/Downloads
-			mv -v balenaEtcher-1.5.80-x64.AppImage iso-burner &>/dev/null
-			mv -v iso-burner /usr/bin &>/dev/null
-		fi
-		clear
-		echo -e "${GREEN}[*] ${BLUE}You have successfully installed balena etcher."
-		echo -e "${GREEN}[*] ${BLUE}To run this tool type ${RED}iso-burner ${BLUE}do not remove the file from /usr/bin."
-	fi
-	clear
-	echo -e "${RED}[!] ${CYAN}Testing your internet speed right now..."
-	sleep 2
-	cd $path/lib
-	echo ""
-	rm results.txt
-	speedtest-cli >> results.txt
-	echo -ne "${GREEN}[*] ${MAGENTA}Your provider is: "
-	cat results.txt | grep from | awk '{print $3 " " $4 " " $5}'
-	sleep 0.5
-	echo -ne "${GREEN}[*] ${MAGENTA}Your ms/ping is: "
-	head -n5 results.txt | tail -1 | awk 'NF>1{print $8, $NF}'
-	sleep 0.5
-	echo -ne "${GREEN}[*] ${MAGENTA}Your download speed is: "
-	cat results.txt | grep Download | awk '{print $2, $3}'
-	sleep 0.5
-	echo -ne "${GREEN}[*] ${MAGENTA}Your upload speed is:"
-	cat results.txt | grep Upload | awk '{print $2, $3}'
-	sleep 1
-	echo -e "${RED}[!] ${BLUE}Your original IP is: ${YELLOW}$ipaddr"
-	echo -ne "${GREEN}[*] ${MAGENTA}Your current IP address is : "
-	curl ifconfig.me
-	cd ..
-	echo ""
-	echo -e "${GREEN}[✓] ${YELLOW}Configuring successfully."
 
-	sleep 1.5
-	cd $path
-	pause 'Press [Enter] to go back to main menu'
-	bash 4ut0m4t10n.sh
 }
+
 
 function install_tools {
 	clear
