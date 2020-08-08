@@ -32,6 +32,10 @@
  
  ## Already leaked:
   
+  **Version 0.2**
+  * Fixed Path Error
+  * Fixed Misc Commands
+  
   **[BETA] Version 0.1:**
   
   * Added 59 tools
