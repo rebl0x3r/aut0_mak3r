@@ -5,6 +5,7 @@ backup_window_size="printf '\e[8;24;80t'"
 ipaddr="$(curl ifconfig.me)"
 ipaddr2="$(curl icanhazip.com)"
 host="$(uname -n)"
+version="0.2"
 
 #some colors
 RED="\e[31m"
@@ -1379,7 +1380,7 @@ Welcome To
 
 echo -e $MAGENTA"${BOLD}The Automatic Configure Script For Linux.   "
 echo ""
-echo -e $RED"Version		: v0.1"
+echo -e $RED"Version		: $version"
 echo -e $GREEN"Tools		: 59"
 echo -e $MAGENTA"Creator		: MrBlackX"
 echo -e $BLUE"Telegram 	: @TheMasterCH"
