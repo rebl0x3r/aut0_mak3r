@@ -25,11 +25,16 @@
 
  ## In Progress:
  
-  * Facebook Tools For Termux Section
-  * ```install_tools``` Module For Linux Section
-  * Splitting ```full_config``` Module Into A Overviewable Menu
+  - [ ] Facebook Tools For Termux Section
+  - [ ] ```install_tools``` Module For Linux Section
+  - [x] Splitting ```full_config``` Module Into A Overviewable Menu
+  - [x] Adding Update Checker
  
  ## Already leaked:
+  
+  **Version 0.3**
+  * Added A Submenu For ```full_config``` Module
+  * Fixed Some Termux Commands
   
   **Version 0.2**
   * Fixed Path Error
