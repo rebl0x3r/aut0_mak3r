@@ -23,6 +23,20 @@ printf '\e[8;37;100t'
 
 # Functions
 
+update(){
+	up=$(git pull 2>/dev/null)
+	echo -e "${YELLOW}[*] Checking if you up-to-date...."
+	sleep 0.5
+	if [[ "$up" == "Already up to date." ]]
+	then
+		echo -e "${GREEN}[i] ${BLUE}Already on the latest version :-)"
+	else
+		$up
+		echo -e "{MAGENTA}[*] ${BLUE}Tool is updated to version $version."
+	fi
+
+}
+
 function main {
 	o="$(uname -o)"
 	if [ $o == "Android" ]
@@ -1402,6 +1416,8 @@ echo -e $MAGENTA"Creator		: MrBlackX"
 echo -e $BLUE"Telegram 	: @TheMasterCH"
 echo ""
 command_check
+echo ""
+update
 echo ""
 echo -e "${RED}[!] ${YELLOW}Directory of The makeR: ${MAGENTA}${path}."
 echo ""
