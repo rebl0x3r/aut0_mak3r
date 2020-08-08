@@ -24,7 +24,7 @@ printf '\e[8;37;100t'
 # Functions
 
 update(){
-	up=$(rm -rf $(git pull) &>/dev/null)
+	up=$(git -q pull &>/dev/null)
 	echo -e "${YELLOW}[*] ${BLUE}Checking if you up-to-date...."
 	echo ""
 	sleep 0.5
@@ -32,7 +32,7 @@ update(){
 	then
 		echo -e "${GREEN}[i] ${BLUE}Already on the latest version :-)"
 	else
-		rm -rf $(git pull) &>/dev/null
+		git pull -q &>/dev/null
 		echo -e "${MAGENTA}[*] ${BLUE}Tool is updated to version $version."
 	fi
 
