@@ -2,8 +2,8 @@
 
 path=$(pwd)
 backup_window_size="printf '\e[8;24;80t'"
-ipaddr="$(curl ifconfig.me)"
-ipaddr2="$(curl icanhazip.com)"
+ipaddr="$(curl ifconfig.me &>/dev/null)"
+ipaddr2="$(curl icanhazip.com &>/dev/null)"
 host="$(uname -n)"
 version="0.2b"
 
