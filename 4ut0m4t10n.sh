@@ -32,8 +32,8 @@ update(){
 	then
 		echo -e "${GREEN}[i] ${BLUE}Already on the latest version :-)"
 	else
-		$up
-		echo -e "{MAGENTA}[*] ${BLUE}Tool is updated to version $version."
+		$up &>/dev/null
+		echo -e "${MAGENTA}[*] ${BLUE}Tool is updated to version $version."
 	fi
 
 }
