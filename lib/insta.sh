@@ -28,10 +28,29 @@ ow='\033[47m'
 bd="\e[1m"
 
 # Path
+
 path=$(pwd)
+path2="/data/data/com.termux/files/home"
+path3=""
 
 clear
 
+# Path Check 
+
+if [[ "$path" == "$path2" ]]; then
+	cd /data/data/com.termux/files/home/aut0_mak3r
+	path3="/data/data/com.termux/files/home/aut0_mak3r"
+elif [[ "$path" != "$path2" ]]; then
+	cd /data/data/com.termux/files/home/aut0_mak3r
+	path3="/data/data/com.termux/files/home/aut0_mak3r"
+else
+	if [[ "$path" == "/data/data/com.termux/files/home/aut0_mak3r/lib" ]]; then
+		cd ..
+		path3="/data/data/files/home/aut0_mak3r"
+	fi
+fi
+
+# Functions
 
 function phishing {
     clear
@@ -43,7 +62,8 @@ function phishing {
     echo -e "\n${g}[i] ${b}Installing ${r}hiddeneye${b}...\n"
     sleep 0.5
     pkg install git python php curl openssh grep -y
-    git clone -b Termux-Support-Branch https://github.com/DarkSecDevelopers/HiddenEye.git; chmod 777 HiddenEye; cd Hiddeneye; pip install requests; cd ..
+    cd $HOME
+    git clone -b Termux-Support-Branch https://github.com/DarkSecDevelopers/HiddenEye.git; chmod 777 HiddenEye; cd Hiddeneye; pip install requests; cd $HOME
     echo -e "\n${g}[i] ${b}Successfully installed hiddeneye.\n"
     echo -e "${g}[i] ${b}To start type: ${r}python HiddenEye.py"
     sleep 1
@@ -51,10 +71,11 @@ function phishing {
     read enter
     echo -e "\n${g}[i] ${b}Installing ${r}SocialPhish${b}...\n"
     sleep 0.5
-    git clone https://github.com/xHak9x/SocialPhish.git; cd SocialPhish; chmod +x socialphish.sh; cd ..
+    git clone https://github.com/xHak9x/SocialPhish.git; cd SocialPhish; chmod +x socialphish.sh; cd $HOME
     echo -e "\n${g}[i] ${b}Successfully installed socialphish.\n"
     echo -e "${g}[i] ${b}To start type: ${r}bash socialphish.sh"
     sleep 1
+    cd aut0_mak3r
     echo -ne "${b}[${r}>${b}] ${p}Press enter to go back> "
     main
 }
@@ -68,7 +89,8 @@ function bruteforce {
     sleep 1
     echo -e "\n${g}[i] ${b}Installing ${r}instainsane${b}...\n"
     sleep 0.5
-    git clone https://github.com/permikomnaskaltara/instainsane; cd instainsane; chmod +x instainsane.sh; chmod +x install; bash install.sh
+    cd $HOME
+    git clone https://github.com/permikomnaskaltara/instainsane; cd instainsane; chmod +x instainsane.sh; chmod +x install; bash install.sh; cd $HOME
     sleep 1
     echo -e "\n${g}[i] ${b}Successfully installed instainsane.\n"
     echo -e "${g}[i] ${b}To start type: ${r}bash instainsane.sh"
@@ -85,7 +107,7 @@ function bruteforce {
     read enter
     echo -e "\n${g}[i] ${b}Installing ${r}PureL0G1Cs Bruter${b}...\n"
     sleep 0.5
-    pkg install python; pkg install python-pip; pip install --upgrade pip; git clone https://github.com/Pure-L0G1C/Instagram; cd Instagram; pip3 install -r requirements.txt; cd ..
+    pkg install python; pkg install python-pip; pip install --upgrade pip; git clone https://github.com/Pure-L0G1C/Instagram; cd Instagram; pip3 install -r requirements.txt; cd $HOME
     echo -e "\n${g}[i] ${b}Successfully installed PureL0G1Cs Bruter.\n"
     echo -e "${g}[i] ${b}To start type: ${r}python3 instagram.py <username> <wordlist> -m 2"
     sleep 0.5
@@ -100,6 +122,7 @@ function bruteforce {
     echo -e "${g}[i] ${b}To start type: ${r}python3 cupp.py -i"
     echo -e "${g}[i] ${b}To start type: ${r}python3 alkrinsta.py"
     sleep 1
+    cd aut0_mak3r
     echo -ne "${b}[${r}>${b}] ${p}Press enter to go back> "
     main
 }
@@ -114,6 +137,7 @@ function instaservices {
     sleep 1
     echo -e "\n${g}[i] ${b}Installing ${r}instagram-tools${b}...\n"
     sleep 0.5
+    cd aut0_mak3r
     pkg install git -y; pkg install nodejs -y; git clone https://github.com/masokky/instagram-tools.git
     sleep 1
     echo -e "\n${g}[i] ${b}Successfully installed instagram-tools.\n"
@@ -123,10 +147,11 @@ function instaservices {
     read enter
     echo -e "\n${g}[i] ${b}Installing ${r}igtools${b}...\n"
     sleep 0.5
-    git clone https://github.com/ikiganteng/bot-igeh.git; cd bot-igeh; unzip node_modules.zip; npm install https://github.com/huttarichard/instagram-private-api; npm audit fix; cd ..
+    git clone https://github.com/ikiganteng/bot-igeh.git; cd bot-igeh; unzip node_modules.zip; npm install https://github.com/huttarichard/instagram-private-api; npm audit fix; cd $HOME
     echo -e "\n${g}[i] ${b}Successfully installed igtools.\n"
     echo -e "${g}[i] ${b}To start type: ${r}ls; node <filename>"
     sleep 1
+    cd aut0_mak3r
     echo -ne "${b}[${r}>${b}] ${p}Press enter to go back> "
     main
 }
@@ -200,12 +225,11 @@ ${bd}${b}[${r}5${b}] ${y}Exit ${g}              Quit the Insta Tools tool${rs}
 
 }
 
-
 main
 
 
 
 #
 # Written By @TheMasterCH
-# Special Upload ...:)_
+# Special Upload ...:)
 #

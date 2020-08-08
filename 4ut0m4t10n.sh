@@ -17,16 +17,10 @@ RESTORE="\e[39"
 BOLD="\e[1m"
 NORMAL="\e[0m"
 
+
 printf '\e[8;37;100t'
 
-#functions
-
-if [ -d $path/tools ]
-then
-	echo ""
-else
-	mkdir tools
-fi
+# Functions
 
 function main {
 	o="$(uname -o)"
@@ -904,27 +898,31 @@ ${RED}More Coming Soon :)
 	if [[ $sm == 1 ]]
 	then
 		clear
-		sudo history -c
-		echo -e "${GREEN}[i] ${BLUE}Done."
+		echo -e "${RED}[!] Using sudo."
+		sleep 0.5
+		echo "# Cleared by @aut0_mak3r" > $HOME/.bash_history
+ 		echo -e "${GREEN}[i] ${BLUE}Done."
 		echo -e $CYAN""
 		pause 'Press [ENTER] to go back'
 		misc
 	elif [[ $sm == 2 ]]
 	then
 		clear
-		nmap -sP 192.168.0.* | grep MAC | awk '{print $1 ": " $3 " | Device: " $4}' | tr -d "()"
+		arp | grep ether | awk '{print "Found IP: " $1 " which has MAC: " $3 }'
 		echo -e $CYAN""
 		pause 'Press [ENTER] to go back'
 		misc
 	elif [[ $sm == 3 ]]
 	then
 		clear
-		lsof -Pni4 | grep LISTEN | awk '{print $9}'
+		echo -e "${GREEN}Found(if nothing then good!): "
+		lsof -Pni4 | grep LISTEN
 		echo -e $CYAN""
 		pause 'Press [ENTER] to go back'
 		misc
 	elif [[ $sm == 4 ]]
 	then
+		sudo apt install sl
 		clear
 		sl -F
 		pause 'Press [ENTER] to go back'
@@ -946,7 +944,7 @@ ${RED}More Coming Soon :)
 		clear
 		echo -e "${YELLOW}Press ${RED}CTRL+C ${YELLOW}to quit."
 		pause 'Press [ENTER] to continue'
-		cd lib; bash matrix.sh
+		timeout 3s bash lib/matrix.sh
 		misc
 	elif [[ $sm == 8 ]]
 	then
@@ -989,7 +987,7 @@ ${RED}More Coming Soon :)
 	then
 		clear
 		wget -q -O - http://someonewhocares.org/hosts/ | grep ^127 >> /etc/hosts
-		wget -qO - http://infiltrated.net/blacklisted|awk '!/#|[a-z]/&&/./{print "iptables -A INPUT -s "$1" -j DROP"}'
+		wget -qO - http://infiltrated.net/blacklisted | awk '!/#|[a-z]/&&/./{print "iptables -A INPUT -s "$1" -j DROP"}'
 		echo -e $CYAN""
 		misc
 	elif [[ $sm == 13 ]]
@@ -1069,6 +1067,7 @@ function tt {
 	clear
 	termux_tools
 }
+
 ###############################
 
 
@@ -1116,7 +1115,7 @@ function termux_tools {
 			sleep 1
 			echo -e "${BLUE}Path: ${GREEN}:$PWD"
 			pause 'Press Enter'
-			cd aut0_mak3r
+			#cd aut0_mak3r
 			bash lib/insta.sh
 
 		}
