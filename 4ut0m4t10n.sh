@@ -5,7 +5,7 @@ backup_window_size="printf '\e[8;24;80t'"
 ipaddr="$(curl ifconfig.me)"
 ipaddr2="$(curl icanhazip.com)"
 host="$(uname -n)"
-version="0.3b"
+version="0.3c"
 
 #some colors
 RED="\e[31m"
@@ -263,7 +263,7 @@ ${RED}[back] ${YELLOW}Back To Main Menu
 		sudo rm -rf /etc/apt/sources.list
 		sudo touch /etc/apt/sources.list
 		echo "deb http://http.kali.org/kali kali-rolling main non-free contrib
-deb-src http://http.kali.org/kali kali-rolling main non-free contrib" >> /etc/apt/sources.list
+deb-src http://http.kali.org/kali kali-rolling main non-free contrib" >> /etc/apt/sources.list 
 		cound_words=$(wc -l /etc/apt/sources.list | cut -d\  -f 1)
 		sleep 1
 		echo -e $BLUE"Added ${RED}$cound_words ${BLUE}lines to sources list."
@@ -289,7 +289,7 @@ deb-src http://http.kali.org/kali kali-rolling main non-free contrib" >> /etc/ap
 		clear
 		echo -e $BOLD ""
 		echo -e $RED"[!] Importing kali.org archive key:"
-		wget -q -O - https://www.kali.org/archive-key.asc | apt-key add -
+		wget -q -O - https://www.kali.org/archive-key.asc | sudo apt-key add -
 		sleep 2
 		echo -e "${GREEN}[i] ${BLUE}Done."
 		pause 'Press [Enter] go back to menu'
@@ -320,12 +320,13 @@ deb-src http://http.kali.org/kali kali-rolling main non-free contrib" >> /etc/ap
 		dpkg --add-architecture i386
 		sleep 1
 		echo -e $MAGENTA ""
-		read -p "[*] Do you want install packages[y/N]? " pck
+		read -p "[*] Do you want install many packages[y/N]?: " pck
 		if [[ $pck == "y" || $pck == "Y" ]]
 		then
 			clear
 			echo -e "[~] ${GREEN}Installing new packages, get something to drink and relax.."
-			apt install neofetch lynx xpdf speedtest-cli firmware-misc-nonfree firmware-netxen firmware-realtek python3 tor tor-arm torbrowser-launcher proxychains filezilla gdebi geany neofetch git bettercap ngrep curl mdk3 mdk4 bc cowpatty php-cgi php apache2 libssl-dev gpa gnupg2 net-tools wget postfix libncurses5 libxml2 tcpdump libexiv2-dev build-essential python-pip ssh ssh-tools htop stacer bleachbit leafpad snapd yersinia cmake make g++ gcc openssh-server openssl screen wapiti whatweb nmap golismero host wget uniscan wafw00f dirb davtest theharvester xsser dnsrecon fierce dnswalk whois sslyze lbd dnsenum dmitry davtest nikto dnsmap netcat gvfs gvfs-common gvfs-daemons gvfs-libs gconf-service gconf2 gconf2-common gvfs-bin psmisc filezilla filezilla-common gdebi vlc firmware-misc-nonfree firmware-netxen firmware-realtek apktool maven default-jdk default-jre openjdk-8-jdk libncurses5-dev lib32z1 lib32ncurses6 -y
+			sleep 0.5
+			apt install neofetch lynx xpdf speedtest-cli firmware-misc-nonfree firmware-netxen firmware-realtek python3 tor tor-arm torbrowser-launcher proxychains proxychains3 filezilla gdebi geany neofetch git bettercap ngrep curl mdk3 mdk4 bc cowpatty php-cgi php apache2 libssl-dev gpa gnupg2 net-tools wget postfix libncurses5 libxml2 tcpdump libexiv2-dev build-essential python-pip ssh ssh-tools htop stacer bleachbit leafpad snapd yersinia cmake make g++ gcc openssh-server openssl screen wapiti whatweb nmap host wget uniscan wafw00f dirb davtest theharvester xsser dnsrecon fierce dnswalk whois sslyze lbd dnsenum dmitry davtest nikto dnsmap netcat gvfs gvfs-common gvfs-daemons gvfs-libs gconf-service gconf2 gconf2-common gvfs-bin psmisc filezilla filezilla-common gdebi vlc firmware-misc-nonfree firmware-netxen firmware-realtek apktool maven default-jdk default-jre openjdk-8-jdk libncurses5-dev lib32z1 lib32ncurses6 -y
 			sed -i s/geteuid/getppid/g /usr/bin/vlc
 			clear
 			echo -e $GREEN "[✓] ${CYAN}Packages has been successfully installed."
@@ -336,6 +337,8 @@ deb-src http://http.kali.org/kali kali-rolling main non-free contrib" >> /etc/ap
 	}
 
 	kali_pack(){
+		echo -e $BOLD "${YELLOW}"
+		figlet -f slant "KaliTools"
 		clear
 		echo ''
 		echo -e $BOLD "${BLUE}
@@ -478,7 +481,7 @@ ${BLUE}[q] ${RED}Quit the module
 				txt=1
 				;;
 				all)
-				apt install kali-tools-802-11 kali-tools-bluetooth kali-tools-crypto-stego kali-tools-database kali-tools-exploitation kali-tools-forensics kali-tools-fuzzing kali-tools-gpu kali-tools-hardware kali-tools-headless kali-tools-information-gathering kali-tools-passwords  kali-tools-post-exploitation kali-tools-reporting kali-tools-reverse-engineering kali-tools-rfid ali-tools-sdr kali-tools-sniffing-spoofing kali-tools-social-engineering kali-tools-top10 kali-tools-voip kali-tools-vulnerability kali-tools-web kali-tools-windows-resources kali-tools-wireless -y
+				apt install kali-tools-802-11 kali-tools-bluetooth kali-tools-crypto-stego kali-tools-database kali-tools-exploitation kali-tools-forensics kali-tools-fuzzing kali-tools-gpu kali-tools-hardware kali-tools-headless kali-tools-information-gathering kali-tools-passwords  kali-tools-post-exploitation kali-tools-reporting kali-tools-reverse-engineering kali-tools-rfid kali-tools-sdr kali-tools-sniffing-spoofing kali-tools-social-engineering kali-tools-top10 kali-tools-voip kali-tools-vulnerability kali-tools-web kali-tools-windows-resources kali-tools-wireless -y
 				txt=1
 				;;
 				c)
