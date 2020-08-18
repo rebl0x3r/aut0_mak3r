@@ -298,7 +298,7 @@ deb-src http://http.kali.org/kali kali-rolling main non-free contrib" >> /etc/ap
 
 	packages(){
 		echo -e "${YELLOW}[!] Updating system."
-		sudo apt-key adv --keyserver hkp://pool.sks-keyservers.net:80 --recv-keys 74A941BA219EC810
+		#sudo apt-key adv --keyserver hkp://pool.sks-keyservers.net:80 --recv-keys 74A941BA219EC810
 		sudo apt update; sudo apt upgrade -y; sudo apt full-upgrade -y; echo ""
 		echo -e "${GREEN}[✓] ${CYAN}Your system has been updated."
 		pause 'Press [Enter] to continue....'
@@ -326,13 +326,13 @@ deb-src http://http.kali.org/kali kali-rolling main non-free contrib" >> /etc/ap
 			clear
 			echo -e "[~] ${GREEN}Installing new packages, get something to drink and relax.."
 			sleep 0.5
-			apt install neofetch lynx xpdf speedtest-cli firmware-misc-nonfree firmware-netxen firmware-realtek python3 tor tor-arm torbrowser-launcher proxychains proxychains3 filezilla gdebi geany neofetch git bettercap ngrep curl mdk3 mdk4 bc cowpatty php-cgi php apache2 libssl-dev gpa gnupg2 net-tools wget postfix libncurses5 libxml2 tcpdump libexiv2-dev build-essential python-pip ssh ssh-tools htop stacer bleachbit leafpad snapd yersinia cmake make g++ gcc openssh-server openssl screen wapiti whatweb nmap host wget uniscan wafw00f dirb davtest theharvester xsser dnsrecon fierce dnswalk whois sslyze lbd dnsenum dmitry davtest nikto dnsmap netcat gvfs gvfs-common gvfs-daemons gvfs-libs gconf-service gconf2 gconf2-common gvfs-bin psmisc filezilla filezilla-common gdebi vlc firmware-misc-nonfree firmware-netxen firmware-realtek apktool maven default-jdk default-jre openjdk-8-jdk libncurses5-dev lib32z1 lib32ncurses6 -y
+			apt install neofetch lynx xpdf speedtest-cli firmware-misc-nonfree firmware-netxen firmware-realtek python3 tor tor-arm torbrowser-launcher proxychains proxychains4 filezilla gdebi geany neofetch git bettercap ngrep curl mdk3 mdk4 bc cowpatty php-cgi php apache2 libssl-dev gpa gnupg2 net-tools wget postfix libncurses5 libxml2 tcpdump libexiv2-dev build-essential python-pip ssh ssh-tools htop stacer bleachbit leafpad snapd yersinia cmake make g++ gcc openssh-server openssl screen wapiti whatweb nmap wget uniscan wafw00f dirb davtest theharvester xsser dnsrecon fierce dnswalk whois sslyze lbd dnsenum dmitry davtest nikto dnsmap netcat gvfs gvfs-common gvfs-daemons gvfs-libs gconf-service gconf2 gconf2-common gvfs-bin psmisc filezilla filezilla-common gdebi vlc firmware-misc-nonfree firmware-netxen firmware-realtek apktool maven default-jdk default-jre openjdk-8-jdk libncurses5-dev lib32z1 lib32ncurses6 -y
 			sed -i s/geteuid/getppid/g /usr/bin/vlc
 			clear
 			echo -e $GREEN "[✓] ${CYAN}Packages has been successfully installed."
 			echo -e "${GREEN}[i] ${BLUE}Done."
 			pause 'Press [Enter] go back to menu'
-			full_config
+			Aonfig
 		fi
 	}
 
