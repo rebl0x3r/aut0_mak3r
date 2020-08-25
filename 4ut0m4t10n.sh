@@ -1,9 +1,20 @@
 #!/bin/bash
 
+#################################################
+#						#  
+#       AUTHOR : THEMASTERCH | MRBLACKX		#
+#						#
+# 	TOOL : FOR CONFIGURATION LINUX		#
+#						#
+#	TIME : MORE THAN 5 MONTHS		#
+#						#
+#################################################
+
+
 path=$(pwd)
 backup_window_size="printf '\e[8;24;80t'"
-ipaddr="$(curl ifconfig.me)"
-ipaddr2="$(curl icanhazip.com)"
+ipaddr="$(curl -s ifconfig.me)"
+ipaddr2="$(curl -s icanhazip.com)"
 host="$(uname -n)"
 version="0.3c"
 
