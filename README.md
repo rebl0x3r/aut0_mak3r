@@ -115,13 +115,13 @@ MarCus
 
 _Coder & Contact :_
   
-[TheMasterCH](https://wa.me/4915226838082)
+[mrblackx2_0](t.me/mrblackx2_0)
                 
                 
                 
 # Social Media
 Telegram:
-* @TheMasterCH
+* @LeakerHounds
 * @On1c0n3
 
 
